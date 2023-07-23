@@ -38,3 +38,29 @@ public class LadderManager : NetworkBehaviour
         
     }
 
+    public void InstallContinuedLadder(Ladder ladder)
+    {
+        Ladder lastLadder = ladder;
+        while(lastLadder.NextLadder != null)
+        {
+            lastLadder = lastLadder.NextLadder;
+        }
+
+        NetworkObject ladderObj = NetworkManager.Instance.Runner.Spawn(_ladderPrefab, lastLadder.LadderSpawnPos.position, Quaternion.identity, Object.InputAuthority);
+
+        lastLadder.NextLadder = ladderObj.GetComponentInChildren<Ladder>();
+    }
+    
+    public void InstallContinuedLadder()
+    {
+        Ladder lastLadder = Temp;
+        while(lastLadder.NextLadder != null)
+        {
+            lastLadder = lastLadder.NextLadder;
+        }
+
+        NetworkObject ladderObj = NetworkManager.Instance.Runner.Spawn(_ladderPrefab, lastLadder.LadderSpawnPos.position, Quaternion.identity, Object.InputAuthority);
+
+        lastLadder.NextLadder = ladderObj.GetComponentInChildren<Ladder>();
+    }
+}

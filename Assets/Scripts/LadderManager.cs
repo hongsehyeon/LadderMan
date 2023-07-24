@@ -8,7 +8,7 @@ public class LadderManager : NetworkBehaviour
 {
     [SerializeField] private NetworkPrefabRef _ladderPrefab;
 
-    private Ladder Temp;
+    private Ladder Temp; // TEST용 코드
 
 
     public override void FixedUpdateNetwork()
@@ -16,7 +16,7 @@ public class LadderManager : NetworkBehaviour
         if (GetInput(out NetworkInputData data))
         {
             Debug.Log("OutPut: " + data.isMouseClick);
-            if(data.isMouseClick == true)
+            if(data.isMouseClick == 1)
             {
                 if (Temp == null)
                     InstallLadder();
@@ -31,6 +31,10 @@ public class LadderManager : NetworkBehaviour
         Runner.Spawn(_ladderPrefab, transform.position, Quaternion.identity, Object.InputAuthority);
     }
 
+
+    /// <summary>
+    /// TEST용 코드
+    /// </summary>
     public void InstallLadder()
     {
         Temp = Runner.Spawn(_ladderPrefab, new Vector2(0,0), Quaternion.identity)
@@ -51,6 +55,11 @@ public class LadderManager : NetworkBehaviour
         lastLadder.NextLadder = ladderObj.GetComponentInChildren<Ladder>();
     }
     
+
+
+    /// <summary>
+    /// TEST용 코드
+    /// </summary>
     public void InstallContinuedLadder()
     {
         Ladder lastLadder = Temp;

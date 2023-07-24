@@ -18,6 +18,7 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 
     public NetworkRunner Runner { get { return _runner; } }
 
+    [SerializeField] private NetworkPrefabRef _ladderManagerPrefab; // TEST INPUT ¹Þ±â ¿ë
     private void Awake()
     {
         if(_instance == null)
@@ -27,25 +28,16 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
         else Destroy(gameObject);
     }
 
-
-   
-    bool isClick;
-
-    private void Update()
-    {
-        //isClick = isClick || Input.GetMouseButtonDown(0);
-        //Debug.Log(isClick);
-    }
-
     public void OnInput(NetworkRunner runner, NetworkInput input)
     {
         var data = new NetworkInputData();
 
-        if (isClick)
+        if (Input.GetKeyDown(KeyCode.W))
         {
-            data.isMouseClick = isClick;
-            isClick = false;
+            data.isMouseClick = 1;
+            Debug.Log(1);
         }
+
         input.Set(data);
     }
 
@@ -82,7 +74,11 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
-
+        if (runner.IsServer)
+        {
+            Vector3 spawnPosition = new Vector3((player.RawEncoded % runner.Config.Simulation.DefaultPlayers) * 3, 1, 0);
+            NetworkObject networkPlayerObject = runner.Spawn(_ladderManagerPrefab, spawnPosition, Quaternion.identity, player);
+        }
     }
 
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)

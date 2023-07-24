@@ -2,5 +2,5 @@
 
 public struct NetworkInputData : INetworkInput
 {
-   public bool isMouseClick;
+   public int isMouseClick;
 }

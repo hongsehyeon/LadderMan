@@ -432,7 +432,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1720014946}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: LadderManager, Assembly-CSharp
         m_MethodName: InstallLadder
         m_Mode: 1
@@ -668,7 +668,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1720014946}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: LadderManager, Assembly-CSharp
         m_MethodName: InstallContinuedLadder
         m_Mode: 1
@@ -852,78 +852,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1677186574}
   m_CullTransparentMesh: 1
---- !u!1 &1720014944
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1720014945}
-  - component: {fileID: 1720014946}
-  - component: {fileID: 1720014947}
-  m_Layer: 0
-  m_Name: LadderManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1720014945
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1720014944}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 127.008766, y: 652.53015, z: -5.5567846}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1720014946
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1720014944}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d716b94dba8170145b650ae3bb9a9be1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interpolationDataSource: 0
-  _ladderPrefab:
-    RawGuidValue: c7abc2f39241ad14197400019a3f1626
---- !u!114 &1720014947
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1720014944}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObjectInterest: 1
-  DefaultInterestGroups: []
-  DestroyWhenStateAuthorityLeaves: 0
-  AllowStateAuthorityOverride: 1
-  AoiPositionSource: {fileID: 0}
-  Flags: 2561
-  NetworkGuid:
-    RawGuidValue: 81066fa49ff947d79a9c84a18fe08040
-  NestedObjects: []
-  NetworkedBehaviours:
-  - {fileID: 1720014946}
-  SimulationBehaviours: []
 --- !u!1 &1947857945
 GameObject:
   m_ObjectHideFlags: 0
@@ -1021,6 +949,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 864c08f82d078b244adbb1742b9f02d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ladderManagerPrefab:
+    RawGuidValue: d68f6eb1e7daa4f46898e4a4bb53735a
 --- !u!4 &1978080568
 Transform:
   m_ObjectHideFlags: 0
@@ -1044,4 +974,3 @@ SceneRoots:
   - {fileID: 1978080568}
   - {fileID: 1281729417}
   - {fileID: 1947857948}
-  - {fileID: 1720014945}

@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject _exitCanvas;
 
-    void Awake()
+    private void Awake()
     {
         if (Instance == null)
         {
@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
         State = state;
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && State == GameState.Playing)
         {

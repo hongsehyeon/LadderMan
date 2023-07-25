@@ -9,6 +9,9 @@ public enum InputButton
     JUMP = 1 << 4,
 }
 
+/// <summary>
+/// Fusion 입력 구조체
+/// </summary>
 public struct InputData : INetworkInput
 {
     public NetworkButtons Buttons;

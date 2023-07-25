@@ -44,7 +44,11 @@ public class LobbyCanvas : MonoBehaviour
         OnPlayerDataSpawnedEvent.RemoveResponse(UpdateLobbyList);
     }
 
-    //Called from button
+    /// <summary>
+    /// 게임 모드 설정 (Fusion.GameMode)
+    /// 4 = Host, 5 = Join
+    /// </summary>
+    /// <param name="gameMode"></param>
     public void SetGameMode(int gameMode)
     {
         GameManager.Instance.SetGameState(GameManager.GameState.Lobby);
@@ -53,7 +57,9 @@ public class LobbyCanvas : MonoBehaviour
         _nickname.transform.parent.gameObject.SetActive(true);
     }
 
-    //Called from button
+    /// <summary>
+    /// Fusion 로직 시작
+    /// </summary>
     public void StartLauncher()
     {
         Launcher = FindObjectOfType<GameLauncher>();
@@ -63,19 +69,25 @@ public class LobbyCanvas : MonoBehaviour
         _nickname.transform.parent.gameObject.SetActive(false);
     }
 
-    //Called from button
+    /// <summary>
+    /// 게임 종료
+    /// </summary>
     public void ExitGame()
     {
         GameManager.Instance.ExitGame();
     }
 
-    //Called from button
+    /// <summary>
+    /// 로비 나가기
+    /// </summary>
     public void LeaveLobby()
     {
         _ = LeaveLobbyAsync();
     }
 
-    //Called from button
+    /// <summary>
+    /// 게임 시작. 맵 로딩 시작
+    /// </summary>
     public void StartButton()
     {
         FusionHelper.LocalRunner.SessionInfo.IsOpen = false;
@@ -83,6 +95,10 @@ public class LobbyCanvas : MonoBehaviour
         LoadingManager.Instance.LoadNextLevel(FusionHelper.LocalRunner);
     }
 
+    /// <summary>
+    /// 로비 퇴장을 위한 비동기 로직
+    /// </summary>
+    /// <returns></returns>
     private async Task LeaveLobbyAsync()
     {
         if (FusionHelper.LocalRunner.IsServer)
@@ -92,6 +108,9 @@ public class LobbyCanvas : MonoBehaviour
         await FusionHelper.LocalRunner?.Shutdown(destroyGameObject: false);
     }
 
+    /// <summary>
+    /// 로비 닫기
+    /// </summary>
     public void CloseLobby()
     {
         foreach (var player in FusionHelper.LocalRunner.ActivePlayers)
@@ -101,6 +120,11 @@ public class LobbyCanvas : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 캔버스 초기화
+    /// </summary>
+    /// <param name="player"></param>
+    /// <param name="runner"></param>
     private void ResetCanvas(PlayerRef player, NetworkRunner runner)
     {
         _initPainel.SetActive(true);
@@ -109,12 +133,22 @@ public class LobbyCanvas : MonoBehaviour
         _startButton.gameObject.SetActive(runner.IsServer);
     }
 
+    /// <summary>
+    /// 로비 캔버스 열기
+    /// </summary>
+    /// <param name="player"></param>
+    /// <param name="runner"></param>
     public void ShowLobbyCanvas(PlayerRef player, NetworkRunner runner)
     {
         _initPainel.SetActive(false);
         _lobbyPainel.SetActive(true);
     }
 
+    /// <summary>
+    /// 로비 정보 갱신
+    /// </summary>
+    /// <param name="playerRef"></param>
+    /// <param name="runner"></param>
     public void UpdateLobbyList(PlayerRef playerRef, NetworkRunner runner)
     {
         _startButton.gameObject.SetActive(runner.IsServer);

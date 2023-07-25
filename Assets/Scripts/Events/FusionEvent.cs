@@ -5,6 +5,9 @@ using Fusion;
 
 namespace FusionUtilsEvents
 {
+    /// <summary>
+    /// Fusion에서 발생한 이벤트들을 옵저버 패턴으로 관리하기 위한 스크립터블 오브젝트
+    /// </summary>
     [CreateAssetMenu]
     public class FusionEvent : ScriptableObject
     {

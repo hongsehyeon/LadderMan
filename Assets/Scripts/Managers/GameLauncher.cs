@@ -5,6 +5,11 @@ public class GameLauncher : MonoBehaviour
 {
     public GameObject LauncherPrefab;
 
+    /// <summary>
+    /// FusionLauncher 실행
+    /// </summary>
+    /// <param name="_gameMode">게임 모드</param>
+    /// <param name="_room">룸 이름</param>
     public void Launch(GameMode _gameMode, string _room)
     {
         FusionLauncher launcher = FindObjectOfType<FusionLauncher>();

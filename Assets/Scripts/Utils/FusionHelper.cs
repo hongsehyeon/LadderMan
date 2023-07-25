@@ -16,6 +16,11 @@ public class FusionHelper : MonoBehaviour, INetworkRunnerCallbacks
     public FusionEvent OnShutdownEvent;
     public FusionEvent OnDisconnectEvent;
 
+    /// <summary>
+    /// 플레이어 입장 콜백
+    /// </summary>
+    /// <param name="runner"></param>
+    /// <param name="player"></param>
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
         if (runner.IsServer)
@@ -31,16 +36,30 @@ public class FusionHelper : MonoBehaviour, INetworkRunnerCallbacks
         OnPlayerJoinedEvent?.Raise(player, runner);
     }
 
+    /// <summary>
+    /// 플레이어 퇴장 콜백
+    /// </summary>
+    /// <param name="runner"></param>
+    /// <param name="player"></param>
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
     {
         OnPlayerLeftEvent?.Raise(player, runner);
     }
 
+    /// <summary>
+    /// 강제 종료 콜백
+    /// </summary>
+    /// <param name="runner"></param>
+    /// <param name="shutdownReason"></param>
     public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
     {
         OnShutdownEvent?.Raise(runner: runner);
     }
 
+    /// <summary>
+    /// 서버 연결 종료 콜백
+    /// </summary>
+    /// <param name="runner"></param>
     public void OnDisconnectedFromServer(NetworkRunner runner)
     {
         OnDisconnectEvent?.Raise(runner: runner);

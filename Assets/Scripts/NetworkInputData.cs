@@ -2,5 +2,6 @@
 
 public struct NetworkInputData : INetworkInput
 {
-   public int isMouseClick;
+   public int install;
+   public int recall;
 }

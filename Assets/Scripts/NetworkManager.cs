@@ -34,8 +34,11 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 
         if (Input.GetKeyDown(KeyCode.W))
         {
-            data.isMouseClick = 1;
-            Debug.Log(1);
+            data.install = 1;
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            data.recall = 1;
         }
 
         input.Set(data);

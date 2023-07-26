@@ -2,6 +2,7 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using Fusion;
 using FusionUtilsEvents;
 
@@ -16,8 +17,8 @@ public class LevelBehaviour : NetworkBehaviour
     private TickTimer LevelTimer { get; set; }
 
     [SerializeField] private GameObject _startWall;
-    [SerializeField] private Text _timerText;
-    [SerializeField] private Text _levelTimerText;
+    [SerializeField] private TextMeshProUGUI _timerText;
+    [SerializeField] private TextMeshProUGUI _levelTimerText;
 
     [SerializeField]
     private int _playersAlreadyFinish = 0;
@@ -163,7 +164,7 @@ public class LevelBehaviour : NetworkBehaviour
     private void NextLevel()
     {
         if (FusionHelper.LocalRunner.IsClient) return;
-        LoadingManager.Instance.LoadNextLevel(FusionHelper.LocalRunner);
+        LoadingManager.Instance.LoadLevel(FusionHelper.LocalRunner);
     }
 
     /// <summary>

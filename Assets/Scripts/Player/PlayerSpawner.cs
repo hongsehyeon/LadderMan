@@ -11,7 +11,7 @@ public class PlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
 
     private void Awake()
     {
-        PlayerSpawnPos = GameObject.FindGameObjectWithTag("Respawn").transform.position;
+        PlayerSpawnPos = GameObject.FindGameObjectWithTag("Respawn").transform.position; 
     }
 
     /// <summary>

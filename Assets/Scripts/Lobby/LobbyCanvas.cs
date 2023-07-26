@@ -92,7 +92,7 @@ public class LobbyCanvas : MonoBehaviour
     {
         FusionHelper.LocalRunner.SessionInfo.IsOpen = false;
         FusionHelper.LocalRunner.SessionInfo.IsVisible = false;
-        LoadingManager.Instance.LoadNextLevel(FusionHelper.LocalRunner);
+        LoadingManager.Instance.LoadLevel(FusionHelper.LocalRunner);
     }
 
     /// <summary>

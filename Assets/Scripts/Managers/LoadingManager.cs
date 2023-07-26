@@ -29,11 +29,13 @@ public class LoadingManager : MonoBehaviour
         _lastLevelIndex = 0;
     }
 
-    public void LoadNextLevel(NetworkRunner runner)
+    /// <summary>
+    /// Game ¾À ·Îµù
+    /// </summary>
+    /// <param name="runner"></param>
+    public void LoadLevel(NetworkRunner runner)
     {
-        _lastLevelIndex = _lastLevelIndex + 1 >= SceneManager.sceneCountInBuildSettings ? 1 : _lastLevelIndex + 1;
-        string scenePath = System.IO.Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(_lastLevelIndex));
-        runner.SetActiveScene(scenePath);
+        runner.SetActiveScene("Game");
     }
 
     public void LoadRandomLevel(NetworkRunner runner)

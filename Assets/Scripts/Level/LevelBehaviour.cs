@@ -163,7 +163,7 @@ public class LevelBehaviour : NetworkBehaviour
     private void NextLevel()
     {
         if (FusionHelper.LocalRunner.IsClient) return;
-        LoadingManager.Instance.LoadNextLevel(FusionHelper.LocalRunner);
+        LoadingManager.Instance.LoadLevel(FusionHelper.LocalRunner);
     }
 
     /// <summary>

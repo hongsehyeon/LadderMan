@@ -1,14 +1,14 @@
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class NicknameText : MonoBehaviour
 {
-    private Text _text;
+    private TextMeshProUGUI _text;
 
     public void SetupNick(string nick)
     {
         if (_text == null)
-            _text = GetComponent<Text>();
+            _text = GetComponent<TextMeshProUGUI>();
         _text.text = nick;
     }
 }

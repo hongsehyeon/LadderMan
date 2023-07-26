@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class FinishRaceScreen : MonoBehaviour
 {
-    [SerializeField] private Text[] _winnerNickText = new Text[3];
+    [SerializeField] private TextMeshProUGUI[] _winnerNickText = new TextMeshProUGUI[3];
     [SerializeField] private Image[] _winnerImage = new Image[3];
 
     private Animator _anim;

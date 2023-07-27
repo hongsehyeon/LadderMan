@@ -355,11 +355,11 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  _speed: 10
-  _jumpForce: 10
-  _maxVelocity: 8
-  fallMultiplier: 3.3
-  lowJumpMultiplier: 2
+  _speed: 500
+  _jumpForce: 7
+  _maxVelocity: 3
+  fallMultiplier: 3
+  lowJumpMultiplier: 1
   _particleManager: {fileID: 11400000, guid: 0423cc74373584a4e90ff094dc08a71b, type: 2}
   _sfxChannel: {fileID: 11400000, guid: dda0dbbebab449245ab5320da422e686, type: 2}
   _jumpSound: {fileID: 11400000, guid: ae24550c5d7d1084fbc9737e535648d0, type: 2}

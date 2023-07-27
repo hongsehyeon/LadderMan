@@ -17,6 +17,12 @@ public class MapManager : NetworkBehaviour
 
     Vector2 _currentMapSpawnPosition;
 
+
+    /// <summary>
+    /// 맵 생성 함수 
+    /// <br></br>
+    /// 프리팹 중 하나를 랜덤으로 생성함
+    /// </summary>
     public void CreateMapToNextPos()
     {
         int randIdx = Random.Range(0, _mapPrefab.Count);

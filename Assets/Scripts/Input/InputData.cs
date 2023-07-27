@@ -1,4 +1,4 @@
-using Fusion;
+ï»¿using Fusion;
 
 [System.Flags]
 public enum InputButton
@@ -10,7 +10,7 @@ public enum InputButton
 }
 
 /// <summary>
-/// Fusion ÀÔ·Â ±¸Á¶Ã¼
+/// Fusion ìž…ë ¥ êµ¬ì¡°ì²´
 /// </summary>
 public struct InputData : INetworkInput
 {

@@ -1,4 +1,4 @@
-using Fusion;
+ï»¿using Fusion;
 using Fusion.Sockets;
 using System;
 using System.Collections;
@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 {
 
-    #region ÀÓ½Ã ½Ì±ÛÅæ
+    #region ìž„ì‹œ ì‹±ê¸€í†¤
     private static NetworkManager _instance;
     public static NetworkManager Instance { get { return _instance; } }
     #endregion
@@ -18,7 +18,7 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 
     public NetworkRunner Runner { get { return _runner; } }
 
-    [SerializeField] private NetworkPrefabRef _ladderManagerPrefab; // TEST INPUT ¹Þ±â ¿ë
+    [SerializeField] private NetworkPrefabRef _ladderManagerPrefab; // TEST INPUT ë°›ê¸° ìš©
     private void Awake()
     {
         if(_instance == null)

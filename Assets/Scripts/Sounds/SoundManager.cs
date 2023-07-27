@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
@@ -15,7 +15,7 @@ public class SoundManager : MonoBehaviour
     }
 
     /// <summary>
-    /// AudioSource ÃÊ±âÈ­
+    /// AudioSource ì´ˆê¸°í™”
     /// </summary>
     private void SetupAudioSources()
     {
@@ -29,7 +29,7 @@ public class SoundManager : MonoBehaviour
     }
 
     /// <summary>
-    /// SFX Àç»ı
+    /// SFX ì¬ìƒ
     /// </summary>
     /// <param name="sound"></param>
     /// <param name="source"></param>
@@ -39,7 +39,7 @@ public class SoundManager : MonoBehaviour
     }
 
     /// <summary>
-    /// BGM Àç»ı
+    /// BGM ì¬ìƒ
     /// </summary>
     /// <param name="sound"></param>
     public void PlayMusic(SoundSO sound)
@@ -49,7 +49,7 @@ public class SoundManager : MonoBehaviour
     }
 
     /// <summary>
-    /// BGM ÁßÁö
+    /// BGM ì¤‘ì§€
     /// </summary>
     public void StopMusic()
     {

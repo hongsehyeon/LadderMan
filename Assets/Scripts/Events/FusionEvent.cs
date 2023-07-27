@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
@@ -6,7 +6,7 @@ using Fusion;
 namespace FusionUtilsEvents
 {
     /// <summary>
-    /// Fusion¿¡¼­ ¹ß»ıÇÑ ÀÌº¥Æ®µéÀ» ¿ÉÀú¹ö ÆĞÅÏÀ¸·Î °ü¸®ÇÏ±â À§ÇÑ ½ºÅ©¸³ÅÍºí ¿ÀºêÁ§Æ®
+    /// Fusionì—ì„œ ë°œìƒí•œ ì´ë²¤íŠ¸ë“¤ì„ ì˜µì €ë²„ íŒ¨í„´ìœ¼ë¡œ ê´€ë¦¬í•˜ê¸° ìœ„í•œ ìŠ¤í¬ë¦½í„°ë¸” ì˜¤ë¸Œì íŠ¸
     /// </summary>
     [CreateAssetMenu]
     public class FusionEvent : ScriptableObject

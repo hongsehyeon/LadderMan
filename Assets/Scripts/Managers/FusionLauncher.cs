@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using Fusion;
 
 public class FusionLauncher : MonoBehaviour
@@ -17,7 +17,7 @@ public class FusionLauncher : MonoBehaviour
     }
 
     /// <summary>
-    /// Fusion °ÔÀÓ ÀÔÀå ½ÃÀÛ
+    /// Fusion ê²Œì„ ì…ì¥ ì‹œì‘
     /// </summary>
     /// <param name="mode"></param>
     /// <param name="room"></param>
@@ -41,9 +41,9 @@ public class FusionLauncher : MonoBehaviour
     }
 
     /// <summary>
-    /// ¿¬°á »óÅÂ ¼³Á¤
+    /// ì—°ê²° ìƒíƒœ ì„¤ì •
     /// </summary>
-    /// <param name="status">¿¬°á »óÅÂ</param>
+    /// <param name="status">ì—°ê²° ìƒíƒœ</param>
     /// <param name="message"></param>
     public void SetConnectionStatus(ConnectionStatus status, string message)
     {

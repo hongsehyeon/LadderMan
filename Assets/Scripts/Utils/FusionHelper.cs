@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
@@ -17,7 +17,7 @@ public class FusionHelper : MonoBehaviour, INetworkRunnerCallbacks
     public FusionEvent OnDisconnectEvent;
 
     /// <summary>
-    /// ÇÃ·¹ÀÌ¾î ÀÔÀå Äİ¹é
+    /// í”Œë ˆì´ì–´ ì…ì¥ ì½œë°±
     /// </summary>
     /// <param name="runner"></param>
     /// <param name="player"></param>
@@ -37,7 +37,7 @@ public class FusionHelper : MonoBehaviour, INetworkRunnerCallbacks
     }
 
     /// <summary>
-    /// ÇÃ·¹ÀÌ¾î ÅğÀå Äİ¹é
+    /// í”Œë ˆì´ì–´ í‡´ì¥ ì½œë°±
     /// </summary>
     /// <param name="runner"></param>
     /// <param name="player"></param>
@@ -47,7 +47,7 @@ public class FusionHelper : MonoBehaviour, INetworkRunnerCallbacks
     }
 
     /// <summary>
-    /// °­Á¦ Á¾·á Äİ¹é
+    /// ê°•ì œ ì¢…ë£Œ ì½œë°±
     /// </summary>
     /// <param name="runner"></param>
     /// <param name="shutdownReason"></param>
@@ -57,7 +57,7 @@ public class FusionHelper : MonoBehaviour, INetworkRunnerCallbacks
     }
 
     /// <summary>
-    /// ¼­¹ö ¿¬°á Á¾·á Äİ¹é
+    /// ì„œë²„ ì—°ê²° ì¢…ë£Œ ì½œë°±
     /// </summary>
     /// <param name="runner"></param>
     public void OnDisconnectedFromServer(NetworkRunner runner)

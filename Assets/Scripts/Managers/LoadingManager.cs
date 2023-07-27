@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.SceneManagement;
 using Fusion;
 using Random = UnityEngine.Random;
@@ -30,7 +30,7 @@ public class LoadingManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Game ¾À ·Îµù
+    /// Game ì”¬ ë¡œë”©
     /// </summary>
     /// <param name="runner"></param>
     public void LoadLevel(NetworkRunner runner)

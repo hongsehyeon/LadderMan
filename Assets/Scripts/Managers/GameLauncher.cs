@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using Fusion;
 
 public class GameLauncher : MonoBehaviour
@@ -6,10 +6,10 @@ public class GameLauncher : MonoBehaviour
     public GameObject LauncherPrefab;
 
     /// <summary>
-    /// FusionLauncher ½ÇÇà
+    /// FusionLauncher ì‹¤í–‰
     /// </summary>
-    /// <param name="_gameMode">°ÔÀÓ ¸ğµå</param>
-    /// <param name="_room">·ë ÀÌ¸§</param>
+    /// <param name="_gameMode">ê²Œì„ ëª¨ë“œ</param>
+    /// <param name="_room">ë£¸ ì´ë¦„</param>
     public void Launch(GameMode _gameMode, string _room)
     {
         FusionLauncher launcher = FindObjectOfType<FusionLauncher>();

@@ -1,4 +1,4 @@
-using Fusion;
+ï»¿using Fusion;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +8,7 @@ public class LadderManager : NetworkBehaviour
 {
     [SerializeField] private NetworkPrefabRef _ladderPrefab;
 
-    private Ladder Temp; // TEST¿ë ÄÚµå
+    private Ladder Temp; // TESTìš© ì½”ë“œ
 
 
     public override void FixedUpdateNetwork()
@@ -31,9 +31,9 @@ public class LadderManager : NetworkBehaviour
     }
 
     /// <summary>
-    /// Ã³À½ root Ladder¸¦ ¼³Ä¡ÇÒ ¶§ »ç¿ëÇÏ´Â ÇÔ¼ö
+    /// ì²˜ìŒ root Ladderë¥¼ ì„¤ì¹˜í•  ë•Œ ì‚¬ìš©í•˜ëŠ” í•¨ìˆ˜
     /// </summary>
-    /// <param name="transform">¼³Ä¡ À§Ä¡</param>
+    /// <param name="transform">ì„¤ì¹˜ ìœ„ì¹˜</param>
     public void InstallLadder(Transform transform)
     {
         Runner.Spawn(_ladderPrefab, transform.position, Quaternion.identity, Object.InputAuthority);
@@ -41,7 +41,7 @@ public class LadderManager : NetworkBehaviour
 
 
     /// <summary>
-    /// TEST¿ë ÄÚµå
+    /// TESTìš© ì½”ë“œ
     /// </summary>
     public void InstallLadder()
     {
@@ -52,9 +52,9 @@ public class LadderManager : NetworkBehaviour
 
 
     /// <summary>
-    /// ¼³Ä¡ÇÑ »ç´Ù¸® À§¿¡ »ç´Ù¸®¸¦ ¼³Ä¡ÇÏ´Â ÇÔ¼ö
+    /// ì„¤ì¹˜í•œ ì‚¬ë‹¤ë¦¬ ìœ„ì— ì‚¬ë‹¤ë¦¬ë¥¼ ì„¤ì¹˜í•˜ëŠ” í•¨ìˆ˜
     /// </summary>
-    /// <param name="ladder">ÀÚ½Å°ú ´ê¾ÆÀÖ´Â »ç´Ù¸®</param>
+    /// <param name="ladder">ìì‹ ê³¼ ë‹¿ì•„ìˆëŠ” ì‚¬ë‹¤ë¦¬</param>
     public void InstallContinuedLadder(Ladder ladder)
     {
         Ladder lastLadder = ladder;
@@ -74,7 +74,7 @@ public class LadderManager : NetworkBehaviour
 
 
     /// <summary>
-    /// TEST¿ë ÄÚµå
+    /// TESTìš© ì½”ë“œ
     /// </summary>
     public void InstallContinuedLadder()
     {
@@ -90,9 +90,9 @@ public class LadderManager : NetworkBehaviour
     }
 
     /// <summary>
-    /// »ç´Ù¸® È¸¼ö ÇÔ¼ö
+    /// ì‚¬ë‹¤ë¦¬ íšŒìˆ˜ í•¨ìˆ˜
     /// </summary>
-    /// <param name="ladder">´ê¾ÆÀÖ´Â »ç´Ù¸®</param>
+    /// <param name="ladder">ë‹¿ì•„ìˆëŠ” ì‚¬ë‹¤ë¦¬</param>
     public void RecallLadder(Ladder ladder)
     {
         if (ladder.PrevLadder != null)
@@ -103,7 +103,7 @@ public class LadderManager : NetworkBehaviour
     }
 
     /// <summary>
-    /// TEST ÇÔ¼ö
+    /// TEST í•¨ìˆ˜
     /// </summary>
     public void RecallLadder()
     {

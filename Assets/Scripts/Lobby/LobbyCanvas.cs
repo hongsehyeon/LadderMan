@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+ï»¿using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -45,7 +45,7 @@ public class LobbyCanvas : MonoBehaviour
     }
 
     /// <summary>
-    /// °ÔÀÓ ¸ğµå ¼³Á¤ (Fusion.GameMode)
+    /// ê²Œì„ ëª¨ë“œ ì„¤ì • (Fusion.GameMode)
     /// 4 = Host, 5 = Join
     /// </summary>
     /// <param name="gameMode"></param>
@@ -58,7 +58,7 @@ public class LobbyCanvas : MonoBehaviour
     }
 
     /// <summary>
-    /// Fusion ·ÎÁ÷ ½ÃÀÛ
+    /// Fusion ë¡œì§ ì‹œì‘
     /// </summary>
     public void StartLauncher()
     {
@@ -70,7 +70,7 @@ public class LobbyCanvas : MonoBehaviour
     }
 
     /// <summary>
-    /// °ÔÀÓ Á¾·á
+    /// ê²Œì„ ì¢…ë£Œ
     /// </summary>
     public void ExitGame()
     {
@@ -78,7 +78,7 @@ public class LobbyCanvas : MonoBehaviour
     }
 
     /// <summary>
-    /// ·Îºñ ³ª°¡±â
+    /// ë¡œë¹„ ë‚˜ê°€ê¸°
     /// </summary>
     public void LeaveLobby()
     {
@@ -86,7 +86,7 @@ public class LobbyCanvas : MonoBehaviour
     }
 
     /// <summary>
-    /// °ÔÀÓ ½ÃÀÛ. ¸Ê ·Îµù ½ÃÀÛ
+    /// ê²Œì„ ì‹œì‘. ë§µ ë¡œë”© ì‹œì‘
     /// </summary>
     public void StartButton()
     {
@@ -96,7 +96,7 @@ public class LobbyCanvas : MonoBehaviour
     }
 
     /// <summary>
-    /// ·Îºñ ÅğÀåÀ» À§ÇÑ ºñµ¿±â ·ÎÁ÷
+    /// ë¡œë¹„ í‡´ì¥ì„ ìœ„í•œ ë¹„ë™ê¸° ë¡œì§
     /// </summary>
     /// <returns></returns>
     private async Task LeaveLobbyAsync()
@@ -109,7 +109,7 @@ public class LobbyCanvas : MonoBehaviour
     }
 
     /// <summary>
-    /// ·Îºñ ´İ±â
+    /// ë¡œë¹„ ë‹«ê¸°
     /// </summary>
     public void CloseLobby()
     {
@@ -121,7 +121,7 @@ public class LobbyCanvas : MonoBehaviour
     }
 
     /// <summary>
-    /// Äµ¹ö½º ÃÊ±âÈ­
+    /// ìº”ë²„ìŠ¤ ì´ˆê¸°í™”
     /// </summary>
     /// <param name="player"></param>
     /// <param name="runner"></param>
@@ -134,7 +134,7 @@ public class LobbyCanvas : MonoBehaviour
     }
 
     /// <summary>
-    /// ·Îºñ Äµ¹ö½º ¿­±â
+    /// ë¡œë¹„ ìº”ë²„ìŠ¤ ì—´ê¸°
     /// </summary>
     /// <param name="player"></param>
     /// <param name="runner"></param>
@@ -145,7 +145,7 @@ public class LobbyCanvas : MonoBehaviour
     }
 
     /// <summary>
-    /// ·Îºñ Á¤º¸ °»½Å
+    /// ë¡œë¹„ ì •ë³´ ê°±ì‹ 
     /// </summary>
     /// <param name="playerRef"></param>
     /// <param name="runner"></param>

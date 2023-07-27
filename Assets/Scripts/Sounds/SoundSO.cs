@@ -1,9 +1,9 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ¿Àµğ¿À¸¦ À¯¿ëÇÏ°Ô »ç¿ëÇÏ±â À§ÇÑ ½ºÅ©¸³ÅÍºí ¿ÀºêÁ§Æ®
-/// Å¬¸³, ½ÇÇà ÇÔ¼ö Æ÷ÇÔ
+/// ì˜¤ë””ì˜¤ë¥¼ ìœ ìš©í•˜ê²Œ ì‚¬ìš©í•˜ê¸° ìœ„í•œ ìŠ¤í¬ë¦½í„°ë¸” ì˜¤ë¸Œì íŠ¸
+/// í´ë¦½, ì‹¤í–‰ í•¨ìˆ˜ í¬í•¨
 /// </summary>
 [CreateAssetMenu(menuName = "Sound/SoundClip", fileName = "SoundSO")]
 public class SoundSO : ScriptableObject
@@ -11,7 +11,7 @@ public class SoundSO : ScriptableObject
     public List<AudioClip> SoundVariations;
 
     /// <summary>
-    /// Å¬¸³µé Áß ÇÏ³ª¸¦ ÇÑ ¹ø Àç»ı
+    /// í´ë¦½ë“¤ ì¤‘ í•˜ë‚˜ë¥¼ í•œ ë²ˆ ì¬ìƒ
     /// </summary>
     /// <param name="source"></param>
     public void PlaySoundOneShot(AudioSource source)
@@ -21,7 +21,7 @@ public class SoundSO : ScriptableObject
     }
 
     /// <summary>
-    /// Å¬¸³µé Áß ÇÏ³ª Àç»ı
+    /// í´ë¦½ë“¤ ì¤‘ í•˜ë‚˜ ì¬ìƒ
     /// </summary>
     /// <param name="source"></param>
     public void PlayAsClip(AudioSource source)

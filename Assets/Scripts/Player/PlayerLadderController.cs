@@ -9,6 +9,8 @@ public class PlayerLadderController : NetworkBehaviour
     [SerializeField] private float _sensingRadius;
 
     [SerializeField] private LayerMask _ladderLayerMask;
+
+    [SerializeField] Stack<Ladder> _myLadders = new Stack<Ladder>();
     void Start()
     {
         
@@ -30,15 +32,22 @@ public class PlayerLadderController : NetworkBehaviour
 
                 Collider2D col = SenseLadder(_sensingRadius, _ladderLayerMask);
 
-                if(col == null) LadderManager.Instance.InstallLadder(transform);
-                else LadderManager.Instance.InstallContinuedLadder(col.gameObject.GetComponentInChildren<Ladder>());
-            }
-            /*if (input.GetButton(InputButton.RECALL))
-            {
-                Collider2D col = SenseLadder(_sensingRadius, _ladderLayerMask);
+                Ladder ladder;
+                if(col == null) ladder = LadderManager.Instance.InstallLadder(transform);
+                else ladder = LadderManager.Instance.InstallContinuedLadder(col.gameObject.GetComponentInChildren<Ladder>());
 
-                LadderManager.Instance.RecallLadder(col.gameObject.GetComponentInChildren<Ladder>());
-            }*/
+                _myLadders.Push(ladder);
+            }
+            if (input.GetButton(InputButton.RECALL))
+            {
+                if (_myLadders.Count <= 0) return;
+
+                if (_myLadders.Peek().NextLadder != null) return;
+
+                Ladder myLadder = _myLadders.Pop();
+
+                LadderManager.Instance.RecallLadder(myLadder);
+            }
         }
         
     }

@@ -26,9 +26,9 @@ public class LadderManager : NetworkBehaviour
     /// 처음 root Ladder를 설치할 때 사용하는 함수
     /// </summary>
     /// <param name="transform">설치 위치</param>
-    public void InstallLadder(Transform transform)
+    public Ladder InstallLadder(Transform transform)
     {
-        Runner.Spawn(_ladderPrefab, transform.position, Quaternion.identity, Object.InputAuthority);
+        return Runner.Spawn(_ladderPrefab, transform.position, Quaternion.identity, Object.InputAuthority).GetComponentInChildren<Ladder>();
     }
 
 
@@ -37,7 +37,7 @@ public class LadderManager : NetworkBehaviour
     /// 설치한 사다리 위에 사다리를 설치하는 함수
     /// </summary>
     /// <param name="ladder">자신과 닿아있는 사다리</param>
-    public void InstallContinuedLadder(Ladder ladder)
+    public Ladder InstallContinuedLadder(Ladder ladder)
     {
         Ladder lastLadder = ladder;
 
@@ -51,6 +51,8 @@ public class LadderManager : NetworkBehaviour
 
         lastLadder.NextLadder = newLadder;
         newLadder.PrevLadder = lastLadder;
+
+        return newLadder;
     }
 
 

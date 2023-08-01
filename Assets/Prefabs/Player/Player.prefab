@@ -195,6 +195,7 @@ GameObject:
   - component: {fileID: 486024757639551880}
   - component: {fileID: 5632907799861441115}
   - component: {fileID: 2587611712234676105}
+  - component: {fileID: 2699472437234053353}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -245,6 +246,7 @@ MonoBehaviour:
   - {fileID: 8590976869848472939}
   - {fileID: 486024757639551880}
   - {fileID: 5632907799861441115}
+  - {fileID: 2699472437234053353}
   SimulationBehaviours: []
 --- !u!114 &7810405377888046653
 MonoBehaviour:
@@ -355,11 +357,11 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  _speed: 10
-  _jumpForce: 10
-  _maxVelocity: 8
-  fallMultiplier: 3.3
-  lowJumpMultiplier: 2
+  _speed: 500
+  _jumpForce: 7
+  _maxVelocity: 3
+  fallMultiplier: 3
+  lowJumpMultiplier: 1
   _particleManager: {fileID: 11400000, guid: 0423cc74373584a4e90ff094dc08a71b, type: 2}
   _sfxChannel: {fileID: 11400000, guid: dda0dbbebab449245ab5320da422e686, type: 2}
   _jumpSound: {fileID: 11400000, guid: ae24550c5d7d1084fbc9737e535648d0, type: 2}
@@ -460,6 +462,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2699472437234053353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3902668803079519949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93ba199fa8cca454a8e24cee2546b94a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  _ladderAmount: 10
+  _sensingRadius: 0.6
+  _ladderLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &4537784839959663660
 GameObject:
   m_ObjectHideFlags: 0

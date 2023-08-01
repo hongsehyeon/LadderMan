@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerLadderController : NetworkBehaviour
 {
-    int _ladderAmount;
+    [SerializeField] private int _ladderAmount;
 
     GameObject _contactLadder;
     void Start()

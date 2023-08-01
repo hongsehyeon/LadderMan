@@ -14,6 +14,14 @@ public class LadderManager : NetworkBehaviour
     public static LadderManager Instance { get => _instance; }
     #endregion
 
+
+    private void Awake()
+    {
+        if (_instance == null)
+            _instance = this;
+        else
+            Destroy(gameObject);
+    }
     /// <summary>
     /// 처음 root Ladder를 설치할 때 사용하는 함수
     /// </summary>

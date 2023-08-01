@@ -23,7 +23,7 @@ public class InputHandler : NetworkBehaviour, INetworkRunnerCallbacks
     bool _isInstall;
     private void Update()
     {
-        _isInstall = Input.GetMouseButton(1);
+        _isInstall = Input.GetMouseButtonDown(1);
     }
 
     #endregion

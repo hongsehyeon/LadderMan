@@ -1,29 +1,25 @@
-using Fusion;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Fusion;
 
 public class PlayerLadderController : NetworkBehaviour
 {
     [SerializeField] private int _ladderAmount;
     [SerializeField] private float _sensingRadius;
-
     [SerializeField] private LayerMask _ladderLayerMask;
 
     [SerializeField] Stack<Ladder> _myLadders = new Stack<Ladder>();
-    void Start()
-    {
-        
-    }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position,_sensingRadius);
     }
+
     public override void FixedUpdateNetwork()
     {
         base.FixedUpdateNetwork();
+
         if (GetInput<InputData>(out var input))
         {
             if (input.GetButton(InputButton.INSTALL))
@@ -49,7 +45,6 @@ public class PlayerLadderController : NetworkBehaviour
                 LadderManager.Instance.RecallLadder(myLadder);
             }
         }
-        
     }
 
     public Collider2D SenseLadder(float radius, LayerMask mask)

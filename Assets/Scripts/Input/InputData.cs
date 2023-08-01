@@ -1,4 +1,4 @@
-﻿using Fusion;
+using Fusion;
 
 [System.Flags]
 public enum InputButton
@@ -7,6 +7,7 @@ public enum InputButton
     RIGHT = 1 << 1,
     RESPAWN = 1 << 3,
     JUMP = 1 << 4,
+    INSTALL = 1 << 5,
 }
 
 /// <summary>

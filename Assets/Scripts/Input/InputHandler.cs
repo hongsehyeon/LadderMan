@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Fusion;
 using Fusion.Sockets;
@@ -18,6 +18,15 @@ public class InputHandler : NetworkBehaviour, INetworkRunnerCallbacks
         }
     }
 
+    #region MouseInput 
+
+    bool _isInstall;
+    private void Update()
+    {
+        _isInstall = Input.GetMouseButton(1);
+    }
+
+    #endregion
     public void OnInput(NetworkRunner runner, NetworkInput input)
     {
         InputData currentInput = new InputData();
@@ -27,6 +36,12 @@ public class InputHandler : NetworkBehaviour, INetworkRunnerCallbacks
         currentInput.Buttons.Set(InputButton.LEFT, Input.GetKey(KeyCode.A));
         currentInput.Buttons.Set(InputButton.RIGHT, Input.GetKey(KeyCode.D));
 
+        if (_isInstall)
+        {
+            currentInput.Buttons.Set(InputButton.INSTALL, _isInstall);
+            _isInstall = false;
+        }
+        
         input.Set(currentInput);
     }
 

@@ -1,16 +1,16 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
     private Rigidbody2D _rb;
     private Animator _anim;
     private SpriteRenderer _renderer;
-    private PlayerRigidbodyMovement _movement;
+    private PlayerMovement _movement;
 
     void Start()
     {
         _rb = GetComponentInParent<Rigidbody2D>();
-        _movement = GetComponentInParent<PlayerRigidbodyMovement>();
+        _movement = GetComponentInParent<PlayerMovement>();
         _anim = GetComponent<Animator>();
         _renderer = GetComponent<SpriteRenderer>();
     }

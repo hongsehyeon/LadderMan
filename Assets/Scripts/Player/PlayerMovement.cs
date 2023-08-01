@@ -1,14 +1,15 @@
-﻿using UnityEngine;
+using UnityEngine;
 using Fusion;
 
 [OrderAfter(typeof(NetworkPhysicsSimulation2D))]
-public class PlayerRigidbodyMovement : NetworkBehaviour
+public class PlayerMovement : NetworkBehaviour
 {
     [Header("Movement")]
     private PlayerBehaviour _behaviour;
     [SerializeField] private LayerMask _groundLayer;
     private NetworkRigidbody2D _rb;
     private InputHandler _inputController;
+    private PlayerLadderController _ladderController;
 
     [SerializeField] float _speed = 10f;
     [SerializeField] float _jumpForce = 10f;
@@ -57,6 +58,7 @@ public class PlayerRigidbodyMovement : NetworkBehaviour
         _collider = GetComponentInChildren<Collider2D>();
         _behaviour = GetBehaviour<PlayerBehaviour>();
         _inputController = GetBehaviour<InputHandler>();
+        _ladderController = GetBehaviour<PlayerLadderController>();
     }
 
     public override void Spawned()
@@ -147,6 +149,14 @@ public class PlayerRigidbodyMovement : NetworkBehaviour
                 _rb.Rigidbody.velocity *= Vector2.up;
             }
             _rb.Rigidbody.AddForce(Vector2.right * _speed * Runner.DeltaTime, ForceMode2D.Force);
+        }
+        else if (input.GetButton(InputButton.UP) && _behaviour.InputsAllowed)
+        {
+            // TODO
+        }
+        else if (input.GetButton(InputButton.DOWN) && _behaviour.InputsAllowed)
+        {
+            // TODO
         }
         else
         {

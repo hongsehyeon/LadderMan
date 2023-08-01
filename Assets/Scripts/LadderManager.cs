@@ -1,34 +1,21 @@
-﻿using Fusion;
+using Fusion;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class LadderManager : NetworkBehaviour
+public class LadderManager : NetworkBehaviour  
 {
     [SerializeField] private NetworkPrefabRef _ladderPrefab;
 
     private Ladder Temp; // TEST용 코드
 
 
-    public override void FixedUpdateNetwork()
-    {
-        if (GetInput(out NetworkInputData data))
-        {
-            if (data.install == 1)
-            {
-                if (Temp == null)
-                    InstallLadder();
-                else
-                    InstallContinuedLadder();
-            }
-            if (data.recall == 1)
-            {
-                RecallLadder();
-            }
-        }
+    #region Singleton
 
-    }
+    static LadderManager _instance;
+    public static LadderManager Instance { get => _instance; }
+    #endregion
 
     /// <summary>
     /// 처음 root Ladder를 설치할 때 사용하는 함수
@@ -64,7 +51,7 @@ public class LadderManager : NetworkBehaviour
             lastLadder = lastLadder.NextLadder;
         }
 
-        NetworkObject ladderObj = NetworkManager.Instance.Runner.Spawn(_ladderPrefab, lastLadder.LadderSpawnPos.position, Quaternion.identity, Object.InputAuthority);
+        NetworkObject ladderObj = Runner.Spawn(_ladderPrefab, lastLadder.LadderSpawnPos.position, Quaternion.identity, Object.InputAuthority);
         Ladder newLadder = ladderObj.GetComponentInChildren<Ladder>();
 
         lastLadder.NextLadder = newLadder;
@@ -84,7 +71,7 @@ public class LadderManager : NetworkBehaviour
             lastLadder = lastLadder.NextLadder;
         }
 
-        NetworkObject ladderObj = NetworkManager.Instance.Runner.Spawn(_ladderPrefab, lastLadder.LadderSpawnPos.position, Quaternion.identity, Object.InputAuthority);
+        NetworkObject ladderObj = Runner.Spawn(_ladderPrefab, lastLadder.LadderSpawnPos.position, Quaternion.identity, Object.InputAuthority);
 
         lastLadder.NextLadder = ladderObj.GetComponentInChildren<Ladder>();
     }

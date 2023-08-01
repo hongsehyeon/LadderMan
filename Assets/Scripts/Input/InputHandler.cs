@@ -41,8 +41,11 @@ public class InputHandler : NetworkBehaviour, INetworkRunnerCallbacks
             currentInput.Buttons.Set(InputButton.INSTALL, _isInstall);
             _isInstall = false;
         }
-        
+
+        //currentInput.Buttons.Set(InputButton.RECALL, Input.GetKey(KeyCode.E));
         input.Set(currentInput);
+    
+    
     }
 
     #region UnusedCallbacks

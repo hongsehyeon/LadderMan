@@ -6,13 +6,19 @@ using UnityEngine;
 public class PlayerLadderController : NetworkBehaviour
 {
     [SerializeField] private int _ladderAmount;
+    [SerializeField] private float _sensingRadius;
 
-    GameObject _contactLadder;
+    [SerializeField] private LayerMask _ladderLayerMask;
     void Start()
     {
         
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position,_sensingRadius);
+    }
     public override void FixedUpdateNetwork()
     {
         base.FixedUpdateNetwork();
@@ -22,25 +28,23 @@ public class PlayerLadderController : NetworkBehaviour
             {
                 if (_ladderAmount <= 0) return;
 
-                if (_contactLadder == null) LadderManager.Instance.InstallLadder(transform);
-                else LadderManager.Instance.InstallContinuedLadder(_contactLadder.GetComponentInChildren<Ladder>());
+                Collider2D col = SenseLadder(_sensingRadius, _ladderLayerMask);
+
+                if(col == null) LadderManager.Instance.InstallLadder(transform);
+                else LadderManager.Instance.InstallContinuedLadder(col.gameObject.GetComponentInChildren<Ladder>());
             }
+            /*if (input.GetButton(InputButton.RECALL))
+            {
+                if (_contactLadder == null) return;
+
+                LadderManager.Instance.RecallLadder(_contactLadder.GetComponentInChildren<Ladder>());
+            }*/
         }
+        
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public Collider2D SenseLadder(float radius, LayerMask mask)
     {
-        if (collision.CompareTag("Ladder"))
-        {
-            _contactLadder = collision.gameObject;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Ladder"))
-        {
-            _contactLadder = null;
-        }
+        return Physics2D.OverlapCircle(transform.position, radius,mask);
     }
 }

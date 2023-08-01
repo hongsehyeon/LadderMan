@@ -8,6 +8,7 @@ public enum InputButton
     RESPAWN = 1 << 3,
     JUMP = 1 << 4,
     INSTALL = 1 << 5,
+    //RECALL = 1 << 6,
 }
 
 /// <summary>

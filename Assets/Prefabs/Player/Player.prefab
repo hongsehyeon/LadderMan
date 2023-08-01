@@ -476,6 +476,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   _ladderAmount: 10
+  _sensingRadius: 1
+  _ladderLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &4537784839959663660
 GameObject:
   m_ObjectHideFlags: 0

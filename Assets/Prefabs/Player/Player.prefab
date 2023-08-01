@@ -476,7 +476,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   _ladderAmount: 10
-  _sensingRadius: 1
+  _sensingRadius: 0.6
   _ladderLayerMask:
     serializedVersion: 2
     m_Bits: 64

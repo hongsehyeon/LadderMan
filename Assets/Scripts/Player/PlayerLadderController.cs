@@ -35,9 +35,9 @@ public class PlayerLadderController : NetworkBehaviour
             }
             /*if (input.GetButton(InputButton.RECALL))
             {
-                if (_contactLadder == null) return;
+                Collider2D col = SenseLadder(_sensingRadius, _ladderLayerMask);
 
-                LadderManager.Instance.RecallLadder(_contactLadder.GetComponentInChildren<Ladder>());
+                LadderManager.Instance.RecallLadder(col.gameObject.GetComponentInChildren<Ladder>());
             }*/
         }
         

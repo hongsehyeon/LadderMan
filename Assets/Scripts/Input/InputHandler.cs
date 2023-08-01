@@ -42,7 +42,7 @@ public class InputHandler : NetworkBehaviour, INetworkRunnerCallbacks
             _isInstall = false;
         }
 
-        //currentInput.Buttons.Set(InputButton.RECALL, Input.GetKey(KeyCode.E));
+        currentInput.Buttons.Set(InputButton.RECALL, Input.GetKey(KeyCode.E));
         input.Set(currentInput);
     
     

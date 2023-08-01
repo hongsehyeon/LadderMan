@@ -1,14 +1,13 @@
 using Fusion;
 
-[System.Flags]
 public enum InputButton
 {
-    LEFT = 1 << 0,
-    RIGHT = 1 << 1,
-    RESPAWN = 1 << 3,
-    JUMP = 1 << 4,
-    INSTALL = 1 << 5,
-    //RECALL = 1 << 6,
+    LEFT = 0,
+    RIGHT = 1,
+    RESPAWN = 2,
+    JUMP = 3,
+    INSTALL = 4,
+    RECALL = 5,
 }
 
 /// <summary>

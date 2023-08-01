@@ -8,9 +8,6 @@ public class LadderManager : NetworkBehaviour
 {
     [SerializeField] private NetworkPrefabRef _ladderPrefab;
 
-    private Ladder Temp; // TEST용 코드
-
-
     #region Singleton
 
     static LadderManager _instance;
@@ -26,16 +23,6 @@ public class LadderManager : NetworkBehaviour
         Runner.Spawn(_ladderPrefab, transform.position, Quaternion.identity, Object.InputAuthority);
     }
 
-
-    /// <summary>
-    /// TEST용 코드
-    /// </summary>
-    public void InstallLadder()
-    {
-        Temp = Runner.Spawn(_ladderPrefab, new Vector2(0, 0), Quaternion.identity)
-            .GetComponentInChildren<Ladder>();
-
-    }
 
 
     /// <summary>
@@ -61,22 +48,6 @@ public class LadderManager : NetworkBehaviour
 
 
     /// <summary>
-    /// TEST용 코드
-    /// </summary>
-    public void InstallContinuedLadder()
-    {
-        Ladder lastLadder = Temp;
-        while (lastLadder.NextLadder != null)
-        {
-            lastLadder = lastLadder.NextLadder;
-        }
-
-        NetworkObject ladderObj = Runner.Spawn(_ladderPrefab, lastLadder.LadderSpawnPos.position, Quaternion.identity, Object.InputAuthority);
-
-        lastLadder.NextLadder = ladderObj.GetComponentInChildren<Ladder>();
-    }
-
-    /// <summary>
     /// 사다리 회수 함수
     /// </summary>
     /// <param name="ladder">닿아있는 사다리</param>
@@ -89,17 +60,4 @@ public class LadderManager : NetworkBehaviour
         Runner.Despawn(ladder.GetComponent<NetworkObject>());
     }
 
-    /// <summary>
-    /// TEST 함수
-    /// </summary>
-    public void RecallLadder()
-    {
-        Ladder lastLadder = Temp;
-        while (lastLadder.NextLadder != null)
-        {
-            lastLadder = lastLadder.NextLadder;
-        }
-
-        RecallLadder(lastLadder);
-    }
 }

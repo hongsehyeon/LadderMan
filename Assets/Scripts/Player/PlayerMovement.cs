@@ -63,11 +63,6 @@ public class PlayerMovement : NetworkBehaviour
         Runner.SetPlayerAlwaysInterested(Object.InputAuthority, Object, true);
     }
 
-    private void OnDrawGizmos()
-    {
-        //Gizmos.DrawCube()
-    }
-
     /// <summary>
     /// Detects grounded and wall sliding state
     /// </summary>
@@ -96,10 +91,7 @@ public class PlayerMovement : NetworkBehaviour
         }
     }
 
-    public bool GetGrounded()
-    {
-        return IsGrounded;
-    }
+    public bool GetGrounded() => IsGrounded;
 
     public override void FixedUpdateNetwork()
     {
@@ -109,7 +101,6 @@ public class PlayerMovement : NetworkBehaviour
             _inputController.PrevButtons = input.Buttons;
             UpdateMovement(input);
             Jump(pressed);
-            BetterJumpLogic(input);
         }
     }
 
@@ -124,7 +115,7 @@ public class PlayerMovement : NetworkBehaviour
             {
                 _rb.Rigidbody.velocity *= Vector2.up;
             }
-            _rb.Rigidbody.AddForce(Vector2.left * _speed * Runner.DeltaTime, ForceMode2D.Force);
+            _rb.Rigidbody.AddForce(_speed * Runner.DeltaTime * Vector2.left, ForceMode2D.Force);
         }
         else if (input.GetButton(InputButton.RIGHT) && _behaviour.InputsAllowed)
         {
@@ -133,7 +124,7 @@ public class PlayerMovement : NetworkBehaviour
             {
                 _rb.Rigidbody.velocity *= Vector2.up;
             }
-            _rb.Rigidbody.AddForce(Vector2.right * _speed * Runner.DeltaTime, ForceMode2D.Force);
+            _rb.Rigidbody.AddForce(_speed * Runner.DeltaTime * Vector2.right, ForceMode2D.Force);
         }
         else if (input.GetButton(InputButton.UP) && _behaviour.InputsAllowed)
         {
@@ -222,23 +213,6 @@ public class PlayerMovement : NetworkBehaviour
     private void PlayJumpParticle(Vector2 pos)
     {
         _particleManager.Get(ParticleManager.ParticleID.Jump).transform.position = pos;
-    }
-
-    /// <summary>
-    /// Increases gravity force on the player based on input and current fall progress.
-    /// </summary>
-    /// <param name="input"></param>
-    private void BetterJumpLogic(InputData input)
-    {
-        if (IsGrounded) { return; }
-        if (_rb.Rigidbody.velocity.y < 0)
-        {
-            _rb.Rigidbody.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Runner.DeltaTime;
-        }
-        else if (_rb.Rigidbody.velocity.y > 0 && !input.GetButton(InputButton.JUMP))
-        {
-            _rb.Rigidbody.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Runner.DeltaTime;
-        }
     }
     #endregion
 }

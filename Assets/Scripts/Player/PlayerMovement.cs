@@ -17,7 +17,6 @@ public class PlayerMovement : NetworkBehaviour
 
     [SerializeField] private float fallMultiplier = 3.3f;
     [SerializeField] private float lowJumpMultiplier = 2f;
-    private readonly float wallSlidingMultiplier = 1f;
 
     private Vector2 _groundHorizontalDragVector = new Vector2(.1f, 1);
     private Vector2 _airHorizontalDragVector = new Vector2(.98f, 1);
@@ -27,8 +26,6 @@ public class PlayerMovement : NetworkBehaviour
     private Collider2D _collider;
     [Networked]
     private NetworkBool IsGrounded { get; set; }
-    private bool _wallSliding;
-    private Vector2 _wallSlidingNormal;
 
     private float _jumpBufferThreshold = .2f;
     private float _jumpBufferTime;
@@ -66,6 +63,11 @@ public class PlayerMovement : NetworkBehaviour
         Runner.SetPlayerAlwaysInterested(Object.InputAuthority, Object, true);
     }
 
+    private void OnDrawGizmos()
+    {
+        //Gizmos.DrawCube()
+    }
+
     /// <summary>
     /// Detects grounded and wall sliding state
     /// </summary>
@@ -73,7 +75,6 @@ public class PlayerMovement : NetworkBehaviour
     {
         WasGrounded = IsGrounded;
         IsGrounded = default;
-        _wallSliding = default;
 
         IsGrounded = (bool)Runner.GetPhysicsScene2D().OverlapBox((Vector2)transform.position + Vector2.down * (_collider.bounds.extents.y - .3f), Vector2.one * .85f, 0, _groundLayer);
         if (IsGrounded)
@@ -93,22 +94,6 @@ public class PlayerMovement : NetworkBehaviour
                 TimeLeftGrounded = Runner.SimulationTime;
             }
         }
-
-        _wallSliding = Runner.GetPhysicsScene2D().OverlapCircle(transform.position + Vector3.right * (_collider.bounds.extents.x), .1f, _groundLayer);
-        if (_wallSliding)
-        {
-            _wallSlidingNormal = Vector2.left;
-            return;
-        }
-        else
-        {
-            _wallSliding = Runner.GetPhysicsScene2D().OverlapCircle(transform.position - Vector3.right * (_collider.bounds.extents.x), .1f, _groundLayer);
-            if (_wallSliding)
-            {
-                _wallSlidingNormal = Vector2.right;
-            }
-        }
-
     }
 
     public bool GetGrounded()
@@ -208,16 +193,6 @@ public class PlayerMovement : NetworkBehaviour
                         RPC_PlayJumpEffects((Vector2)transform.position - Vector2.up * .5f);
                     }
                 }
-                else if (_wallSliding)
-                {
-                    _rb.Rigidbody.velocity *= Vector2.zero; //Reset y and x Velocity
-                    _rb.Rigidbody.AddForce((Vector2.up + (_wallSlidingNormal)) * _jumpForce, ForceMode2D.Impulse);
-                    CoyoteTimeCD = true;
-                    if (Runner.Simulation.IsLocalPlayerFirstExecution && Object.HasInputAuthority)
-                    {
-                        RPC_PlayJumpEffects((Vector2)transform.position - _wallSlidingNormal * .5f);
-                    }
-                }
             }
         }
     }
@@ -258,14 +233,7 @@ public class PlayerMovement : NetworkBehaviour
         if (IsGrounded) { return; }
         if (_rb.Rigidbody.velocity.y < 0)
         {
-            if (_wallSliding && input.AxisPressed())
-            {
-                _rb.Rigidbody.velocity += Vector2.up * Physics2D.gravity.y * (wallSlidingMultiplier - 1) * Runner.DeltaTime;
-            }
-            else
-            {
-                _rb.Rigidbody.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Runner.DeltaTime;
-            }
+            _rb.Rigidbody.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Runner.DeltaTime;
         }
         else if (_rb.Rigidbody.velocity.y > 0 && !input.GetButton(InputButton.JUMP))
         {

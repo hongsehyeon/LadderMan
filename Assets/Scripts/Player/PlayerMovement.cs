@@ -23,18 +23,6 @@ public class PlayerMovement : NetworkBehaviour
     [Networked]
     private NetworkBool IsGrounded { get; set; }
 
-    private float _jumpBufferThreshold = .2f;
-    private float _jumpBufferTime;
-
-    [Networked]
-    private float CoyoteTimeThreshold { get; set; } = .1f;
-    [Networked]
-    private float TimeLeftGrounded { get; set; }
-    [Networked]
-    private NetworkBool CoyoteTimeCD { get; set; }
-    [Networked]
-    private NetworkBool WasGrounded { get; set; }
-
     [Space()]
     [Header("Particle")]
     [SerializeField] private ParticleManager _particleManager;
@@ -70,27 +58,7 @@ public class PlayerMovement : NetworkBehaviour
     /// </summary>
     private void DetectGround()
     {
-        WasGrounded = IsGrounded;
-        IsGrounded = default;
-
         IsGrounded = (bool)Runner.GetPhysicsScene2D().OverlapBox((Vector2)transform.position + Vector2.down * (_collider.bounds.extents.y - .4f), Vector2.one * .85f, 0, _groundLayer);
-        if (IsGrounded)
-        {
-            CoyoteTimeCD = false;
-            return;
-        }
-
-        if (WasGrounded)
-        {
-            if (CoyoteTimeCD)
-            {
-                CoyoteTimeCD = false;
-            }
-            else
-            {
-                TimeLeftGrounded = Runner.SimulationTime;
-            }
-        }
     }
 
     public bool GetGrounded() => IsGrounded;

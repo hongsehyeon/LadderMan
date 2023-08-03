@@ -453,7 +453,11 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  _ladderLayer:
+    serializedVersion: 2
+    m_Bits: 64
   _speed: 5
+  _ladderSpeedMultiplier: 0.5
   _jumpForce: 10
   _gravity: -9.81
   _gravityMultiplier: 5

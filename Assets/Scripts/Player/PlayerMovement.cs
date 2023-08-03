@@ -9,11 +9,13 @@ public class PlayerMovement : NetworkBehaviour
     [Header("Movement")]
     private PlayerBehaviour _behaviour;
     [SerializeField] private LayerMask _groundLayer;
+    [SerializeField] private LayerMask _ladderLayer;
     private NetworkTransform _nt;
     private InputHandler _inputController;
     private PlayerLadderController _ladderController;
 
     [SerializeField] float _speed = 5f;
+    [SerializeField] float _ladderSpeedMultiplier = 0.5f;
     [SerializeField] float _jumpForce = 10f;
     [SerializeField] float _gravity = -9.81f;
     [SerializeField] float _gravityMultiplier = 3f;
@@ -22,6 +24,8 @@ public class PlayerMovement : NetworkBehaviour
     private Collider2D _collider;
     [Networked]
     private NetworkBool IsGrounded { get; set; }
+    [Networked]
+    private NetworkBool IsLadder { get; set; }
 
     [Space()]
     [Header("Particle")]
@@ -61,6 +65,11 @@ public class PlayerMovement : NetworkBehaviour
         IsGrounded = (bool)Runner.GetPhysicsScene2D().OverlapBox((Vector2)transform.position + Vector2.down * (_collider.bounds.extents.y - .4f), Vector2.one * .85f, 0, _groundLayer);
     }
 
+    private void DetectLadder()
+    {
+        IsLadder = (bool)Runner.GetPhysicsScene2D().OverlapBox((Vector2)transform.position + Vector2.down * (_collider.bounds.extents.y - .4f), Vector2.one * .85f, 0, _ladderLayer);
+    }
+
     public bool GetGrounded() => IsGrounded;
 
     public override void FixedUpdateNetwork()
@@ -69,6 +78,10 @@ public class PlayerMovement : NetworkBehaviour
         {
             var pressed = input.GetButtonPressed(_inputController.PrevButtons);
             _inputController.PrevButtons = input.Buttons;
+
+            DetectGround();
+            DetectLadder();
+
             Jump(pressed);
             UpdateMovement(input);
         }
@@ -77,6 +90,7 @@ public class PlayerMovement : NetworkBehaviour
     private void UpdateMovement(InputData input)
     {
         Vector3 moveVector = Vector3.zero;
+        moveVector.y = _velocity;
 
         if (input.GetButton(InputButton.LEFT) && _behaviour.InputsAllowed)
         {
@@ -86,24 +100,21 @@ public class PlayerMovement : NetworkBehaviour
         {
             moveVector += _speed * Vector3.right;
         }
-        else if (input.GetButton(InputButton.UP) && _behaviour.InputsAllowed)
+        else if (IsLadder && input.GetButton(InputButton.UP) && _behaviour.InputsAllowed)
         {
-            // TODO
+            moveVector += _speed * _ladderSpeedMultiplier * Vector3.up;
         }
-        else if (input.GetButton(InputButton.DOWN) && _behaviour.InputsAllowed)
+        else if (IsLadder && input.GetButton(InputButton.DOWN) && _behaviour.InputsAllowed)
         {
-            // TODO
+            moveVector += _speed * _ladderSpeedMultiplier * Vector3.down;
         }
 
-        moveVector.y = _velocity;
         _nt.transform.Translate(moveVector * Runner.DeltaTime);
     }
 
     private void Jump(NetworkButtons pressedButtons)
     {
-        DetectGround();
-
-        if (!IsGrounded)
+        if (!IsGrounded && !IsLadder)
             _velocity += _gravity * _gravityMultiplier * Runner.DeltaTime;
         else
             _velocity = 0f;

@@ -13,7 +13,7 @@ public class PlayerBehaviour : NetworkBehaviour
 
     public int PlayerID { get; private set; }
 
-    private NetworkRigidbody2D _rb;
+    private NetworkTransform _nt;
     private InputHandler _inputController;
     private Collider2D _collider;
     private Collider2D _hitCollider;
@@ -39,7 +39,7 @@ public class PlayerBehaviour : NetworkBehaviour
     private void Awake()
     {
         _inputController = GetBehaviour<InputHandler>();
-        _rb = GetBehaviour<NetworkRigidbody2D>();
+        _nt = GetBehaviour<NetworkTransform>();
         _collider = GetComponentInChildren<Collider2D>();
     }
 
@@ -50,7 +50,7 @@ public class PlayerBehaviour : NetworkBehaviour
         if (Object.HasInputAuthority)
         {
             //Set Interpolation data source to predicted if is input authority.
-            _rb.InterpolationDataSource = InterpolationDataSources.Predicted;
+            //_nt.InterpolationDataSource = InterpolationDataSources.Predicted;
             CameraManager camera = FindObjectOfType<CameraManager>();
             camera.CameraTarget = CameraTransform;
 
@@ -86,7 +86,6 @@ public class PlayerBehaviour : NetworkBehaviour
         if (Runner.IsServer)
         {
             RPC_DeathEffects();
-            _rb.Rigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
         }
     }
 
@@ -140,7 +139,6 @@ public class PlayerBehaviour : NetworkBehaviour
         {
             if (RespawnTimer.Expired(Runner))
             {
-                _rb.Rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
                 StartCoroutine(Respawn());
             }
         }
@@ -153,7 +151,7 @@ public class PlayerBehaviour : NetworkBehaviour
 
     private IEnumerator Respawn()
     {
-        _rb.TeleportToPosition(PlayerSpawner.PlayerSpawnPos);
+        _nt.TeleportToPosition(PlayerSpawner.PlayerSpawnPos);
         yield return new WaitForSeconds(.1f);
         Respawning = false;
         SetInputsAllowed(true);

@@ -188,13 +188,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2696988544233876979}
-  - component: {fileID: 272156903099844500}
-  - component: {fileID: 7810405377888046653}
-  - component: {fileID: 8590976869848472939}
   - component: {fileID: 8589931420083990183}
-  - component: {fileID: 486024757639551880}
-  - component: {fileID: 5632907799861441115}
   - component: {fileID: 2587611712234676105}
+  - component: {fileID: 272156903099844500}
+  - component: {fileID: -4749349247708083961}
+  - component: {fileID: 8590976869848472939}
+  - component: {fileID: 7810405377888046653}
+  - component: {fileID: 5632907799861441115}
   - component: {fileID: 2699472437234053353}
   m_Layer: 0
   m_Name: Player
@@ -220,72 +220,6 @@ Transform:
   - {fileID: 3417929054554733409}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &272156903099844500
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3902668803079519949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObjectInterest: 1
-  DefaultInterestGroups: []
-  DestroyWhenStateAuthorityLeaves: 0
-  AllowStateAuthorityOverride: 0
-  AoiPositionSource: {fileID: 0}
-  Flags: 2305
-  NetworkGuid:
-    RawGuidValue: a7a051a45ec3de640adbad40c3199fc2
-  NestedObjects: []
-  NetworkedBehaviours:
-  - {fileID: 7810405377888046653}
-  - {fileID: 8590976869848472939}
-  - {fileID: 486024757639551880}
-  - {fileID: 5632907799861441115}
-  - {fileID: 2699472437234053353}
-  SimulationBehaviours: []
---- !u!114 &7810405377888046653
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3902668803079519949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20dae70412aecda4da558895e7c5dc95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interpolationDataSource: 1
-  CameraTransform: {fileID: 7646465077643819169}
-  _Nickname:
-    _length: 0
-    _data:
-      Data: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-  _PlayerColor: {r: 0, g: 0, b: 0, a: 0}
-  _InputsAllowed:
-    _value: 0
-  _particleManager: {fileID: 11400000, guid: 0423cc74373584a4e90ff094dc08a71b, type: 2}
-  _sfxChannel: {fileID: 11400000, guid: dda0dbbebab449245ab5320da422e686, type: 2}
-  _deathSound: {fileID: 11400000, guid: b786c41e078a48d4989e3ff64d035764, type: 2}
-  _playerSource: {fileID: 2587611712234676105}
---- !u!114 &8590976869848472939
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3902668803079519949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21005f9d073dbbd4c89a73a194aee013, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interpolationDataSource: 0
 --- !u!50 &8589931420083990183
 Rigidbody2D:
   serializedVersion: 4
@@ -301,7 +235,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: 6bea9c872560a8c4985fe7ab2ce7ef54, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -312,60 +246,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
---- !u!114 &486024757639551880
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3902668803079519949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1779252708, guid: e725a070cec140c4caffb81624c8c787, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interpolationDataSource: 1
-  InterpolationSpace: 0
-  InterpolationTarget: {fileID: 7646465077643819169}
-  InterpolateErrorCorrection: 1
-  InterpolatedErrorCorrectionSettings:
-    MinRate: 3.3
-    MaxRate: 10
-    PosBlendStart: 0.25
-    PosBlendEnd: 1
-    PosMinCorrection: 0.025
-    PosTeleportDistance: 2
-    RotBlendStart: 0.1
-    RotBlendEnd: 0.5
-    RotTeleportRadians: 1.5
-  UseLegacySharedModeInterpolation: 0
-  TargetInterpolationDelay: 0.03
---- !u!114 &5632907799861441115
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3902668803079519949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c4ef32a81ec42f46bdf6b9c0a9c2dc0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interpolationDataSource: 1
-  _groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  _speed: 500
-  _jumpForce: 7
-  _maxVelocity: 3
-  fallMultiplier: 3
-  lowJumpMultiplier: 1
-  _particleManager: {fileID: 11400000, guid: 0423cc74373584a4e90ff094dc08a71b, type: 2}
-  _sfxChannel: {fileID: 11400000, guid: dda0dbbebab449245ab5320da422e686, type: 2}
-  _jumpSound: {fileID: 11400000, guid: ae24550c5d7d1084fbc9737e535648d0, type: 2}
-  _playerSource: {fileID: 2587611712234676105}
+  m_Constraints: 4
 --- !u!82 &2587611712234676105
 AudioSource:
   m_ObjectHideFlags: 0
@@ -377,7 +258,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -462,6 +343,128 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &272156903099844500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3902668803079519949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectInterest: 1
+  DefaultInterestGroups: []
+  DestroyWhenStateAuthorityLeaves: 0
+  AllowStateAuthorityOverride: 0
+  AoiPositionSource: {fileID: 0}
+  Flags: 2305
+  NetworkGuid:
+    RawGuidValue: a7a051a45ec3de640adbad40c3199fc2
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: -4749349247708083961}
+  - {fileID: 8590976869848472939}
+  - {fileID: 7810405377888046653}
+  - {fileID: 5632907799861441115}
+  - {fileID: 2699472437234053353}
+  SimulationBehaviours: []
+--- !u!114 &-4749349247708083961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3902668803079519949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 1
+  InterpolationSpace: 0
+  InterpolationTarget: {fileID: 7646465077643819169}
+  InterpolateErrorCorrection: 1
+  InterpolatedErrorCorrectionSettings:
+    MinRate: 3.3
+    MaxRate: 10
+    PosBlendStart: 0.25
+    PosBlendEnd: 1
+    PosMinCorrection: 0.025
+    PosTeleportDistance: 2
+    RotBlendStart: 0.1
+    RotBlendEnd: 0.5
+    RotTeleportRadians: 1.5
+  UseLegacySharedModeInterpolation: 0
+  TargetInterpolationDelay: 0.03
+--- !u!114 &8590976869848472939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3902668803079519949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21005f9d073dbbd4c89a73a194aee013, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+--- !u!114 &7810405377888046653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3902668803079519949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20dae70412aecda4da558895e7c5dc95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 1
+  CameraTransform: {fileID: 7646465077643819169}
+  _Nickname:
+    _length: 0
+    _data:
+      Data: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  _PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  _InputsAllowed:
+    _value: 0
+  _particleManager: {fileID: 11400000, guid: 0423cc74373584a4e90ff094dc08a71b, type: 2}
+  _sfxChannel: {fileID: 11400000, guid: dda0dbbebab449245ab5320da422e686, type: 2}
+  _deathSound: {fileID: 11400000, guid: b786c41e078a48d4989e3ff64d035764, type: 2}
+  _playerSource: {fileID: 2587611712234676105}
+--- !u!114 &5632907799861441115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3902668803079519949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c4ef32a81ec42f46bdf6b9c0a9c2dc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 1
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  _ladderLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  _speed: 5
+  _ladderSpeedMultiplier: 0.5
+  _jumpForce: 10
+  _gravity: -9.81
+  _gravityMultiplier: 5
+  _particleManager: {fileID: 11400000, guid: 0423cc74373584a4e90ff094dc08a71b, type: 2}
+  _sfxChannel: {fileID: 11400000, guid: dda0dbbebab449245ab5320da422e686, type: 2}
+  _jumpSound: {fileID: 11400000, guid: ae24550c5d7d1084fbc9737e535648d0, type: 2}
+  _playerSource: {fileID: 2587611712234676105}
 --- !u!114 &2699472437234053353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -474,7 +477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93ba199fa8cca454a8e24cee2546b94a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interpolationDataSource: 0
+  _interpolationDataSource: 1
   _ladderAmount: 10
   _sensingRadius: 0.6
   _ladderLayerMask:

@@ -8,6 +8,8 @@ public enum InputButton
     JUMP = 3,
     INSTALL = 4,
     RECALL = 5,
+    UP = 6,
+    DOWN = 7,
 }
 
 /// <summary>

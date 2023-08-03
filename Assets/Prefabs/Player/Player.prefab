@@ -398,7 +398,7 @@ MonoBehaviour:
     RotBlendEnd: 0.5
     RotTeleportRadians: 1.5
   UseLegacySharedModeInterpolation: 0
-  TargetInterpolationDelay: 0.01
+  TargetInterpolationDelay: 0.03
 --- !u!114 &8590976869848472939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -454,9 +454,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   _speed: 5
-  _jumpForce: 7
+  _jumpForce: 10
   _gravity: -9.81
-  _gravityMultiplier: 0.5
+  _gravityMultiplier: 5
   _particleManager: {fileID: 11400000, guid: 0423cc74373584a4e90ff094dc08a71b, type: 2}
   _sfxChannel: {fileID: 11400000, guid: dda0dbbebab449245ab5320da422e686, type: 2}
   _jumpSound: {fileID: 11400000, guid: ae24550c5d7d1084fbc9737e535648d0, type: 2}

@@ -50,7 +50,7 @@ public class PlayerBehaviour : NetworkBehaviour
         if (Object.HasInputAuthority)
         {
             //Set Interpolation data source to predicted if is input authority.
-            _nt.InterpolationDataSource = InterpolationDataSources.Predicted;
+            //_nt.InterpolationDataSource = InterpolationDataSources.Predicted;
             CameraManager camera = FindObjectOfType<CameraManager>();
             camera.CameraTarget = CameraTransform;
 

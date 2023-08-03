@@ -1,5 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using Fusion;
+using UnityEngine.Windows;
 
 [OrderAfter(typeof(NetworkPhysicsSimulation2D))]
 public class PlayerMovement : NetworkBehaviour
@@ -14,7 +16,8 @@ public class PlayerMovement : NetworkBehaviour
     [SerializeField] float _speed = 5f;
     [SerializeField] float _jumpForce = 10f;
     [SerializeField] float _gravity = -9.81f;
-    [SerializeField] float _gravityMultiplier = 0.5f;
+    [SerializeField] float _gravityMultiplier = 3f;
+    private float _velocity;
 
     private Collider2D _collider;
     [Networked]
@@ -42,7 +45,7 @@ public class PlayerMovement : NetworkBehaviour
     [SerializeField] private SoundSO _jumpSound;
     [SerializeField] private AudioSource _playerSource;
 
-    void Awake()
+    private void Awake()
     {
         _nt = GetComponent<NetworkTransform>();
         _collider = GetComponentInChildren<Collider2D>();
@@ -56,6 +59,12 @@ public class PlayerMovement : NetworkBehaviour
         Runner.SetPlayerAlwaysInterested(Object.InputAuthority, Object, true);
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube((Vector2)transform.position + Vector2.down * (_collider.bounds.extents.y - .4f), Vector2.one * .85f);
+    }
+
     /// <summary>
     /// Detects grounded and wall sliding state
     /// </summary>
@@ -64,14 +73,12 @@ public class PlayerMovement : NetworkBehaviour
         WasGrounded = IsGrounded;
         IsGrounded = default;
 
-        IsGrounded = (bool)Runner.GetPhysicsScene2D().OverlapBox((Vector2)transform.position + Vector2.down * (_collider.bounds.extents.y - .3f), Vector2.one * .85f, 0, _groundLayer);
+        IsGrounded = (bool)Runner.GetPhysicsScene2D().OverlapBox((Vector2)transform.position + Vector2.down * (_collider.bounds.extents.y - .4f), Vector2.one * .85f, 0, _groundLayer);
         if (IsGrounded)
         {
             CoyoteTimeCD = false;
             return;
         }
-        else
-            _nt.transform.Translate(_gravity * _gravityMultiplier * Runner.DeltaTime * Vector3.up);
 
         if (WasGrounded)
         {
@@ -94,15 +101,13 @@ public class PlayerMovement : NetworkBehaviour
         {
             var pressed = input.GetButtonPressed(_inputController.PrevButtons);
             _inputController.PrevButtons = input.Buttons;
-            UpdateMovement(input);
             Jump(pressed);
+            UpdateMovement(input);
         }
     }
 
-    void UpdateMovement(InputData input)
+    private void UpdateMovement(InputData input)
     {
-        DetectGround();
-
         Vector3 moveVector = Vector3.zero;
 
         if (input.GetButton(InputButton.LEFT) && _behaviour.InputsAllowed)
@@ -122,42 +127,30 @@ public class PlayerMovement : NetworkBehaviour
             // TODO
         }
 
+        moveVector.y = _velocity;
         _nt.transform.Translate(moveVector * Runner.DeltaTime);
     }
 
-    #region Jump
     private void Jump(NetworkButtons pressedButtons)
     {
-        if (pressedButtons.IsSet(InputButton.JUMP) || CalculateJumpBuffer())
+        DetectGround();
+
+        if (!IsGrounded)
+            _velocity += _gravity * _gravityMultiplier * Runner.DeltaTime;
+        else
+            _velocity = 0f;
+
+        if (pressedButtons.IsSet(InputButton.JUMP))
         {
             if (_behaviour.InputsAllowed)
             {
-                if (!IsGrounded && pressedButtons.IsSet(InputButton.JUMP))
+                if (IsGrounded)
                 {
-                    _jumpBufferTime = Runner.SimulationTime;
-                }
-
-                if (IsGrounded || CalculateCoyoteTime())
-                {
-
-                    CoyoteTimeCD = true;
-                    if (Runner.Simulation.IsLocalPlayerFirstExecution && Object.HasInputAuthority)
-                    {
-                        //RPC_PlayJumpEffects((Vector2)transform.position - Vector2.up * .5f);
-                    }
+                    _velocity = _jumpForce;
+                    //RPC_PlayJumpEffects((Vector2)transform.position - Vector2.up * .5f);
                 }
             }
         }
-    }
-
-    private bool CalculateJumpBuffer()
-    {
-        return (Runner.SimulationTime <= _jumpBufferTime + _jumpBufferThreshold) && IsGrounded;
-    }
-
-    private bool CalculateCoyoteTime()
-    {
-        return (Runner.SimulationTime <= TimeLeftGrounded + CoyoteTimeThreshold);
     }
 
     [Rpc(sources: RpcSources.InputAuthority, RpcTargets.All)]
@@ -176,5 +169,4 @@ public class PlayerMovement : NetworkBehaviour
     {
         _particleManager.Get(ParticleManager.ParticleID.Jump).transform.position = pos;
     }
-    #endregion
 }

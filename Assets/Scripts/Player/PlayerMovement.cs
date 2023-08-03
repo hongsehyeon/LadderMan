@@ -7,21 +7,14 @@ public class PlayerMovement : NetworkBehaviour
     [Header("Movement")]
     private PlayerBehaviour _behaviour;
     [SerializeField] private LayerMask _groundLayer;
-    private NetworkRigidbody2D _rb;
+    private NetworkTransform _nt;
     private InputHandler _inputController;
     private PlayerLadderController _ladderController;
 
-    [SerializeField] float _speed = 10f;
+    [SerializeField] float _speed = 5f;
     [SerializeField] float _jumpForce = 10f;
-    [SerializeField] float _maxVelocity = 8f;
-
-    [SerializeField] private float fallMultiplier = 3.3f;
-    [SerializeField] private float lowJumpMultiplier = 2f;
-
-    private Vector2 _groundHorizontalDragVector = new Vector2(.1f, 1);
-    private Vector2 _airHorizontalDragVector = new Vector2(.98f, 1);
-    private Vector2 _horizontalSpeedReduceVector = new Vector2(.95f, 1);
-    private Vector2 _verticalSpeedReduceVector = new Vector2(1, .95f);
+    [SerializeField] float _gravity = -9.81f;
+    [SerializeField] float _gravityMultiplier = 0.5f;
 
     private Collider2D _collider;
     [Networked]
@@ -51,7 +44,7 @@ public class PlayerMovement : NetworkBehaviour
 
     void Awake()
     {
-        _rb = GetComponent<NetworkRigidbody2D>();
+        _nt = GetComponent<NetworkTransform>();
         _collider = GetComponentInChildren<Collider2D>();
         _behaviour = GetBehaviour<PlayerBehaviour>();
         _inputController = GetBehaviour<InputHandler>();
@@ -66,7 +59,7 @@ public class PlayerMovement : NetworkBehaviour
     /// <summary>
     /// Detects grounded and wall sliding state
     /// </summary>
-    private void DetectGroundAndWalls()
+    private void DetectGround()
     {
         WasGrounded = IsGrounded;
         IsGrounded = default;
@@ -77,6 +70,8 @@ public class PlayerMovement : NetworkBehaviour
             CoyoteTimeCD = false;
             return;
         }
+        else
+            _nt.transform.Translate(_gravity * _gravityMultiplier * Runner.DeltaTime * Vector3.up);
 
         if (WasGrounded)
         {
@@ -106,25 +101,17 @@ public class PlayerMovement : NetworkBehaviour
 
     void UpdateMovement(InputData input)
     {
-        DetectGroundAndWalls();
+        DetectGround();
+
+        Vector3 moveVector = Vector3.zero;
 
         if (input.GetButton(InputButton.LEFT) && _behaviour.InputsAllowed)
         {
-            //Reset x velocity if start moving in oposite direction.
-            if (_rb.Rigidbody.velocity.x > 0 && IsGrounded)
-            {
-                _rb.Rigidbody.velocity *= Vector2.up;
-            }
-            _rb.Rigidbody.AddForce(_speed * Runner.DeltaTime * Vector2.left, ForceMode2D.Force);
+            moveVector += _speed * Vector3.left;
         }
         else if (input.GetButton(InputButton.RIGHT) && _behaviour.InputsAllowed)
         {
-            //Reset x velocity if start moving in oposite direction.
-            if (_rb.Rigidbody.velocity.x < 0 && IsGrounded)
-            {
-                _rb.Rigidbody.velocity *= Vector2.up;
-            }
-            _rb.Rigidbody.AddForce(_speed * Runner.DeltaTime * Vector2.right, ForceMode2D.Force);
+            moveVector += _speed * Vector3.right;
         }
         else if (input.GetButton(InputButton.UP) && _behaviour.InputsAllowed)
         {
@@ -134,37 +121,13 @@ public class PlayerMovement : NetworkBehaviour
         {
             // TODO
         }
-        else
-        {
-            //Different horizontal drags depending if grounded or not.
-            if (IsGrounded)
-                _rb.Rigidbody.velocity *= _groundHorizontalDragVector;
-            else
-                _rb.Rigidbody.velocity *= _airHorizontalDragVector;
-        }
 
-        LimitSpeed();
-    }
-
-    private void LimitSpeed()
-    {
-        //Limit horizontal velocity
-        if (Mathf.Abs(_rb.Rigidbody.velocity.x) > _maxVelocity)
-        {
-            _rb.Rigidbody.velocity *= _horizontalSpeedReduceVector;
-        }
-
-        if (Mathf.Abs(_rb.Rigidbody.velocity.y) > _maxVelocity * 2)
-        {
-            _rb.Rigidbody.velocity *= _verticalSpeedReduceVector;
-        }
+        _nt.transform.Translate(moveVector * Runner.DeltaTime);
     }
 
     #region Jump
     private void Jump(NetworkButtons pressedButtons)
     {
-
-        //Jump
         if (pressedButtons.IsSet(InputButton.JUMP) || CalculateJumpBuffer())
         {
             if (_behaviour.InputsAllowed)
@@ -176,12 +139,11 @@ public class PlayerMovement : NetworkBehaviour
 
                 if (IsGrounded || CalculateCoyoteTime())
                 {
-                    _rb.Rigidbody.velocity *= Vector2.right; //Reset y Velocity
-                    _rb.Rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+
                     CoyoteTimeCD = true;
                     if (Runner.Simulation.IsLocalPlayerFirstExecution && Object.HasInputAuthority)
                     {
-                        RPC_PlayJumpEffects((Vector2)transform.position - Vector2.up * .5f);
+                        //RPC_PlayJumpEffects((Vector2)transform.position - Vector2.up * .5f);
                     }
                 }
             }

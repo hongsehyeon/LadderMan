@@ -70,4 +70,9 @@ public class PlayerLadderController : NetworkBehaviour
     {
         return Physics2D.OverlapCircle(transform.position, _sensingRadius, _ladderLayerMask);
     }
+
+    public void RemoveLadder(Ladder ladder)
+    {
+        _myLadders.Remove(ladder);
+    }
 }

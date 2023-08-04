@@ -35,6 +35,16 @@ public class PlayerMovement : NetworkBehaviour
     [SerializeField] private SoundSO _jumpSound;
     [SerializeField] private AudioSource _playerSource;
 
+
+    [Space()]
+    [Header("Animator")]
+    [SerializeField] private GameObject _sprite;
+    [SerializeField] private Animation _legAnim;
+    [SerializeField] private AnimationClip _walkClip;
+    [SerializeField] private AnimationClip _jumpClip;
+    bool _canWalk;
+    bool _canJump;
+    bool _flip;
     private void Awake()
     {
         _nt = GetComponent<NetworkTransform>();
@@ -49,18 +59,19 @@ public class PlayerMovement : NetworkBehaviour
         Runner.SetPlayerAlwaysInterested(Object.InputAuthority, Object, true);
     }
 
-    private void OnDrawGizmos()
+    /*private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube((Vector2)transform.position + Vector2.down * (_collider.bounds.extents.y - .4f), Vector2.one * .85f);
     }
-
+*/
     /// <summary>
     /// Detects grounded and wall sliding state
     /// </summary>
     private void DetectGround()
     {
         IsGrounded = (bool)Runner.GetPhysicsScene2D().OverlapBox((Vector2)transform.position + Vector2.down * (_collider.bounds.extents.y - .4f), Vector2.one * .85f, 0, _groundLayer);
+        _canWalk = IsGrounded;
     }
 
     private void DetectLadder()
@@ -96,10 +107,33 @@ public class PlayerMovement : NetworkBehaviour
         if (input.GetButton(InputButton.LEFT) && _behaviour.InputsAllowed)
         {
             moveVector += _speed * Vector3.left;
+            if (_canWalk)
+            {
+                _legAnim.clip = _walkClip;
+                _legAnim.Play();
+            }
+
+            if (!_flip)
+            {
+                _sprite.transform.localScale = new Vector3(_sprite.transform.localScale.x * -1,_sprite.transform.localScale.y,_sprite.transform.localScale.z);
+                _flip = !_flip;
+            }
         }
         else if (input.GetButton(InputButton.RIGHT) && _behaviour.InputsAllowed)
         {
             moveVector += _speed * Vector3.right;
+
+            if (_canWalk)
+            {
+                _legAnim.clip = _walkClip;
+                _legAnim.Play();
+            }
+
+            if (_flip)
+            {
+                _sprite.transform.localScale = new Vector3(_sprite.transform.localScale.x * -1,_sprite.transform.localScale.y,_sprite.transform.localScale.z);
+                _flip = !_flip;
+            }
         }
         else if (IsLadder && input.GetButton(InputButton.UP) && _behaviour.InputsAllowed)
         {
@@ -115,6 +149,7 @@ public class PlayerMovement : NetworkBehaviour
 
     private void Jump(NetworkButtons pressedButtons)
     {
+        
         if (!IsGrounded && !IsLadder)
             _velocity += _gravity * _gravityMultiplier * Runner.DeltaTime;
         else
@@ -127,6 +162,9 @@ public class PlayerMovement : NetworkBehaviour
                 if (IsGrounded)
                 {
                     _velocity = _jumpForce;
+                    _canWalk = false;
+                    _legAnim.clip = _jumpClip;
+                    _legAnim.Play();
                     //RPC_PlayJumpEffects((Vector2)transform.position - Vector2.up * .5f);
                 }
             }

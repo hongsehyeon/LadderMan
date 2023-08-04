@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ladder : MonoBehaviour
+public class Ladder : NetworkBehaviour
 {
     private Ladder _prevLadder;
     private Ladder _nextLadder;
@@ -16,6 +16,23 @@ public class Ladder : MonoBehaviour
     public GameObject Outline;
 
     public PlayerLadderController Owner { get; set; }
+
+    public SpriteRenderer SR;
+
+
+    [Networked]
+    public Color LadderColor { get; set; }
+
+
+    private void Start()
+    {
+        SR.color = LadderColor;
+    }
+    public override void Spawned()
+    {
+        base.Spawned();
+        SR.color = LadderColor;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

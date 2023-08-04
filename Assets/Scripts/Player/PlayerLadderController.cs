@@ -20,6 +20,9 @@ public class PlayerLadderController : NetworkBehaviour
 
     //Outline
     GameObject _lastLadderObject;
+
+    Color playerColor;
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
@@ -31,6 +34,7 @@ public class PlayerLadderController : NetworkBehaviour
         base.Spawned();
         _ladderInstallTimer = TickTimer.CreateFromSeconds(Runner, 0);
         _ladderRecallTimer = TickTimer.CreateFromSeconds(Runner, 0);
+        playerColor = GetComponentInChildren<PlayerBehaviour>().PlayerColor;
     }
 
     public override void FixedUpdateNetwork()
@@ -48,6 +52,7 @@ public class PlayerLadderController : NetworkBehaviour
                 if(col == null) ladder = LadderManager.Instance.InstallLadder(this, transform);
                 else ladder = LadderManager.Instance.InstallContinuedLadder(this, col.gameObject.GetComponentInChildren<Ladder>());
 
+                ladder.LadderColor = playerColor;
                 _myLadders.Add(ladder);
 
                 _ladderInstallTimer = TickTimer.CreateFromSeconds(Runner, _installCooltime);

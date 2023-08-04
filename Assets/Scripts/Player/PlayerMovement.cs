@@ -1,7 +1,5 @@
-using System.Collections;
 using UnityEngine;
 using Fusion;
-using UnityEngine.Windows;
 
 [OrderAfter(typeof(NetworkPhysicsSimulation2D))]
 public class PlayerMovement : NetworkBehaviour
@@ -12,7 +10,7 @@ public class PlayerMovement : NetworkBehaviour
     [SerializeField] private LayerMask _ladderLayer;
     private NetworkTransform _nt;
     private InputHandler _inputController;
-    private PlayerLadderController _ladderController;
+    private LevelBehaviour _levelBehaviour;
 
     [SerializeField] float _speed = 5f;
     [SerializeField] float _ladderSpeedMultiplier = 0.5f;
@@ -43,7 +41,7 @@ public class PlayerMovement : NetworkBehaviour
         _collider = GetComponentInChildren<Collider2D>();
         _behaviour = GetBehaviour<PlayerBehaviour>();
         _inputController = GetBehaviour<InputHandler>();
-        _ladderController = GetBehaviour<PlayerLadderController>();
+        _levelBehaviour = FindObjectOfType<LevelBehaviour>();
     }
 
     public override void Spawned()
@@ -84,6 +82,9 @@ public class PlayerMovement : NetworkBehaviour
 
             Jump(pressed);
             UpdateMovement(input);
+
+            if (_nt.transform.position.y > _levelBehaviour.Score)
+                _levelBehaviour.Score = _nt.transform.position.y;
         }
     }
 

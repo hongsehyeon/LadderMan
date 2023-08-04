@@ -5,6 +5,30 @@ using UnityEngine;
 
 public class MapManager : NetworkBehaviour
 {
+
+    #region Singleton
+
+    static MapManager _instance;
+    public static MapManager Instance { get => _instance; }
+    #endregion
+
+    private void Awake()
+    {
+        if (_instance == null)
+            _instance = this;
+        else
+            Destroy(gameObject);
+    }
+
+    public override void Spawned()
+    {
+        base.Spawned();
+        if (Runner.IsServer)
+        {
+            CreateMapToNextPos();
+        }
+    }
+
     /// <summary>
     /// 맵 플랫폼 프리팹 모음
     /// </summary>
@@ -23,6 +47,7 @@ public class MapManager : NetworkBehaviour
     /// <br></br>
     /// 프리팹 중 하나를 랜덤으로 생성함
     /// </summary>
+    [ContextMenu("Create")]
     public void CreateMapToNextPos()
     {
         int randIdx = Random.Range(0, _mapPrefab.Count);

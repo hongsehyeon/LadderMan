@@ -14,4 +14,7 @@ public class Ladder : MonoBehaviour
     public Transform LadderSpawnPos { get { return _ladderSpawnPos; } }
 
 
+    public PlayerLadderController Owner { get; set; }
+
+
 }

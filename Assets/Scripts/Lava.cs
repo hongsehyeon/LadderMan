@@ -1,7 +1,5 @@
-﻿using Fusion;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Fusion;
 
 public class Lava : NetworkBehaviour
 {
@@ -18,7 +16,6 @@ public class Lava : NetworkBehaviour
     public override void FixedUpdateNetwork()
     {
         if (IsEnd == true) return;
-        base.FixedUpdateNetwork();
-        transform.position += Vector3.up * _speed * Runner.DeltaTime;
+        transform.Translate(_speed * Runner.DeltaTime * Vector3.up);
     }
 }

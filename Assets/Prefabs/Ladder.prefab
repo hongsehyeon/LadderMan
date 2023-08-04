@@ -229,6 +229,7 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 3998548520461581271}
+  - {fileID: 6353976127107289416}
   SimulationBehaviours: []
 --- !u!114 &3998548520461581271
 MonoBehaviour:
@@ -270,8 +271,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd50bd65f3ad42443b915911627f060e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
   _ladderSpawnPos: {fileID: 437547577577264914}
   Outline: {fileID: 4671693651663714584}
+  SR: {fileID: 2082568474500481589}
+  _LadderColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!61 &1228473911976097151
 BoxCollider2D:
   m_ObjectHideFlags: 0

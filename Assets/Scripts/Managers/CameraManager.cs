@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraManager : MonoBehaviour
@@ -83,6 +83,6 @@ public class CameraManager : MonoBehaviour
         _step = Speed * Vector2.Distance(CameraTarget.position, transform.position) * Time.deltaTime;
 
         Vector2 pos = Vector2.MoveTowards(transform.position, CameraTarget.position + _offset, _step);
-        transform.position = pos;
+        transform.position = new Vector2(0, pos.y);
     }
 }

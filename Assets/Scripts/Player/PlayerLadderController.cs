@@ -54,7 +54,7 @@ public class PlayerLadderController : NetworkBehaviour
             if (input.GetButton(InputButton.RECALL))
             {
                 if (_myLadders.Count <= 0) return;
-                if (_ladderRecallTimer.Expired(Runner) == true) return;
+                if (_ladderRecallTimer.Expired(Runner) == false) return;
 
                 if (_myLadders.Peek().NextLadder != null) return;
 

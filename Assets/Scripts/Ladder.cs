@@ -14,4 +14,15 @@ public class Ladder : MonoBehaviour
     public Transform LadderSpawnPos { get { return _ladderSpawnPos; } }
 
     public GameObject Outline;
+
+    public PlayerLadderController Owner { get; set; }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Lava"))
+        {
+            Owner.RemoveLadder(this);
+            Destroy(gameObject);
+        }
+    }
 }

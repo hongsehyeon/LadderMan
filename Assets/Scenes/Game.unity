@@ -2399,6 +2399,7 @@ MonoBehaviour:
   _interpolationDataSource: 0
   OnPlayerDisconnectEvent: {fileID: 11400000, guid: 2e042482a2b0f7e49bd86f40afda96c8, type: 2}
   _levelTime: 180
+  _lavaPrefab: {fileID: 5204162702496601137, guid: faa5e42538d38cd40bda3834036aa9d7, type: 3}
   _startWall: {fileID: 485124062}
   _timerText: {fileID: 315928497}
   _levelTimerText: {fileID: 1224167499}

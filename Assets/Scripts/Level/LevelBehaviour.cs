@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 using Fusion;
 using FusionUtilsEvents;
@@ -16,6 +15,7 @@ public class LevelBehaviour : NetworkBehaviour
     [Networked]
     private TickTimer LevelTimer { get; set; }
 
+    [SerializeField] private GameObject _lavaPrefab;
     [SerializeField] private GameObject _startWall;
     [SerializeField] private TextMeshProUGUI _timerText;
     [SerializeField] private TextMeshProUGUI _levelTimerText;
@@ -39,6 +39,7 @@ public class LevelBehaviour : NetworkBehaviour
         FindObjectOfType<PlayerSpawner>().RespawnPlayers(Runner);
         _finishRace = FindObjectOfType<FinishRaceScreen>();
         StartLevel();
+        SpawnLava();
     }
 
     private void OnEnable()
@@ -63,6 +64,15 @@ public class LevelBehaviour : NetworkBehaviour
         StartLevelMusic();
         LoadingManager.Instance.FinishLoadingScreen();
         GameManager.Instance.SetGameState(GameManager.GameState.Playing);
+    }
+
+    /// <summary>
+    /// 용암 프리팹 생성
+    /// </summary>
+    private void SpawnLava()
+    {
+        if (Runner.IsServer)
+            Runner.Spawn(_lavaPrefab);
     }
 
     private void StartLevelMusic()

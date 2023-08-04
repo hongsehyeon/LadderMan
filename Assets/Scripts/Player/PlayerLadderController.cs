@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
+using System.Linq;
 
 public class PlayerLadderController : NetworkBehaviour
 {
@@ -8,7 +9,7 @@ public class PlayerLadderController : NetworkBehaviour
     [SerializeField] private float _sensingRadius;
     [SerializeField] private LayerMask _ladderLayerMask;
 
-    [SerializeField] private Stack<Ladder> _myLadders = new Stack<Ladder>();
+    [SerializeField] private List<Ladder> _myLadders = new List<Ladder>();
 
 
     [Header("Cooltime")]
@@ -42,10 +43,10 @@ public class PlayerLadderController : NetworkBehaviour
                 Collider2D col = SenseLadder();
 
                 Ladder ladder;
-                if(col == null) ladder = LadderManager.Instance.InstallLadder(transform);
-                else ladder = LadderManager.Instance.InstallContinuedLadder(col.gameObject.GetComponentInChildren<Ladder>());
+                if(col == null) ladder = LadderManager.Instance.InstallLadder(this, transform);
+                else ladder = LadderManager.Instance.InstallContinuedLadder(this, col.gameObject.GetComponentInChildren<Ladder>());
 
-                _myLadders.Push(ladder);
+                _myLadders.Add(ladder);
 
                 _ladderInstallTimer = TickTimer.CreateFromSeconds(Runner, _installCooltime);
             }
@@ -54,9 +55,10 @@ public class PlayerLadderController : NetworkBehaviour
                 if (_myLadders.Count <= 0) return;
                 if (_ladderRecallTimer.Expired(Runner) == false) return;
 
-                if (_myLadders.Peek().NextLadder != null) return;
+                if (_myLadders.Last().NextLadder != null) return;
 
-                Ladder myLadder = _myLadders.Pop();
+                Ladder myLadder = _myLadders.Last();
+                _myLadders.Remove(_myLadders.Last());
 
                 LadderManager.Instance.RecallLadder(myLadder);
                 _ladderRecallTimer = TickTimer.CreateFromSeconds(Runner, _installCooltime);
@@ -67,5 +69,10 @@ public class PlayerLadderController : NetworkBehaviour
     public Collider2D SenseLadder()
     {
         return Physics2D.OverlapCircle(transform.position, _sensingRadius, _ladderLayerMask);
+    }
+
+    public void RemoveLadder(Ladder ladder)
+    {
+        _myLadders.Remove(ladder);
     }
 }

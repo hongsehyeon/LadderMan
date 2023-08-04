@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using UnityEngine;
 using TMPro;
@@ -14,11 +14,14 @@ public class LevelBehaviour : NetworkBehaviour
     private TickTimer StartTimer { get; set; }
     [Networked]
     private TickTimer LevelTimer { get; set; }
+    [Networked]
+    public float Score { get; set; }
 
     [SerializeField] private GameObject _lavaPrefab;
     [SerializeField] private GameObject _startWall;
     [SerializeField] private TextMeshProUGUI _timerText;
     [SerializeField] private TextMeshProUGUI _levelTimerText;
+    [SerializeField] private TextMeshProUGUI _scoreText;
 
     [SerializeField]
     private int _playersAlreadyFinish = 0;
@@ -82,7 +85,6 @@ public class LevelBehaviour : NetworkBehaviour
 
     public override void FixedUpdateNetwork()
     {
-
         if (StartTimer.IsRunning && _timerText.gameObject.activeInHierarchy)
         {
             _timerText.text = ((int?)StartTimer.RemainingTime(Runner)).ToString();
@@ -106,6 +108,7 @@ public class LevelBehaviour : NetworkBehaviour
                 LevelTimer = TickTimer.None;
             }
             _levelTimerText.text = ((int?)LevelTimer.RemainingTime(Runner)).ToString();
+            _scoreText.text = $"{Math.Truncate(Score * 10) / 10}m";
         }
     }
 
@@ -185,6 +188,7 @@ public class LevelBehaviour : NetworkBehaviour
         _playersAlreadyFinish = 0;
         StartTimer = TickTimer.CreateFromSeconds(Runner, 5);
         _timerText.gameObject.SetActive(true);
+        _scoreText.gameObject.SetActive(true);
         _startWall.gameObject.SetActive(true);
         for (int i = 0; i < 3; i++)
         {

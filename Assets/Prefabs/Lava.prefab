@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  _speed: 3
+  _speed: 0.3
 --- !u!114 &7914501279602125003
 MonoBehaviour:
   m_ObjectHideFlags: 0

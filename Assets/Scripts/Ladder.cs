@@ -13,5 +13,5 @@ public class Ladder : MonoBehaviour
     [SerializeField] Transform _ladderSpawnPos;
     public Transform LadderSpawnPos { get { return _ladderSpawnPos; } }
 
-
+    public GameObject Outline;
 }

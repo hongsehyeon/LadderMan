@@ -16,7 +16,9 @@ public class PlayerLadderController : NetworkBehaviour
     [SerializeField] private float _recallCooltime;
     TickTimer _ladderInstallTimer { get; set; }
     TickTimer _ladderRecallTimer { get; set; }
-    
+
+    //Outline
+    GameObject _lastLadderObject;
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
@@ -60,6 +62,27 @@ public class PlayerLadderController : NetworkBehaviour
 
                 LadderManager.Instance.RecallLadder(myLadder);
                 _ladderRecallTimer = TickTimer.CreateFromSeconds(Runner, _installCooltime);
+            }
+        }
+    }
+
+    private void Update()
+    {
+        Collider2D ladder = SenseLadder();
+
+        if(ladder != null)
+        {
+            if (_lastLadderObject != null) _lastLadderObject.GetComponent<Ladder>().Outline.SetActive(false);
+
+            _lastLadderObject = ladder.gameObject;
+            _lastLadderObject.GetComponent<Ladder>().Outline.SetActive(true);
+        }
+        else
+        {
+            if (_lastLadderObject != null)
+            {
+                _lastLadderObject.GetComponent<Ladder>().Outline.SetActive(false);
+                _lastLadderObject = null;
             }
         }
     }

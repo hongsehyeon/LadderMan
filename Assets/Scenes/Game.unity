@@ -494,6 +494,7 @@ GameObject:
   - component: {fileID: 377292516}
   - component: {fileID: 377292518}
   - component: {fileID: 377292517}
+  m_Layer: 0
   m_Name: ScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}

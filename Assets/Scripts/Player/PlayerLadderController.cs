@@ -42,8 +42,8 @@ public class PlayerLadderController : NetworkBehaviour
                 Collider2D col = SenseLadder();
 
                 Ladder ladder;
-                if(col == null) ladder = LadderManager.Instance.InstallLadder(transform);
-                else ladder = LadderManager.Instance.InstallContinuedLadder(col.gameObject.GetComponentInChildren<Ladder>());
+                if(col == null) ladder = LadderManager.Instance.InstallLadder(this, transform);
+                else ladder = LadderManager.Instance.InstallContinuedLadder(this, col.gameObject.GetComponentInChildren<Ladder>());
 
                 _myLadders.Push(ladder);
 

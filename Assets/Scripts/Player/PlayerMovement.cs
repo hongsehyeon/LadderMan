@@ -52,7 +52,7 @@ public class PlayerMovement : NetworkBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube((Vector2)transform.position + Vector2.down * (_collider.bounds.extents.y - .4f), Vector2.one * .85f);
+        Gizmos.DrawWireCube((Vector2)transform.position + Vector2.down * _collider.bounds.extents.y, new Vector2(1f, 0.1f) * .85f);
     }
 
     /// <summary>
@@ -60,12 +60,13 @@ public class PlayerMovement : NetworkBehaviour
     /// </summary>
     private void DetectGround()
     {
-        IsGrounded = (bool)Runner.GetPhysicsScene2D().OverlapBox((Vector2)transform.position + Vector2.down * (_collider.bounds.extents.y - .4f), Vector2.one * .85f, 0, _groundLayer);
+        IsGrounded = (bool)Runner.GetPhysicsScene2D().OverlapBox((Vector2)transform.position + Vector2.down * _collider.bounds.extents.y, new Vector2(1f, 0.1f) * .85f, 0, _groundLayer);
     }
 
     private void DetectLadder()
     {
-        IsLadder = (bool)Runner.GetPhysicsScene2D().OverlapBox((Vector2)transform.position + Vector2.down * (_collider.bounds.extents.y - .4f), Vector2.one * .85f, 0, _ladderLayer);
+        IsLadder = (bool)Runner.GetPhysicsScene2D().OverlapBox((Vector2)transform.position + Vector2.down * _collider.bounds.extents.y, new Vector2(1f, 0.1f) * .85f, 0, _ladderLayer);
+        _collider.enabled = !IsLadder;
     }
 
     public bool GetGrounded() => IsGrounded;

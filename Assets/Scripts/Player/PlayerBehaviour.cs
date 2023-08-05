@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using Fusion;
+using static Unity.Collections.Unicode;
 
 public class PlayerBehaviour : NetworkBehaviour
 {
@@ -195,5 +196,20 @@ public class PlayerBehaviour : NetworkBehaviour
                 FinishRace();
             }
         }
+    }
+
+    public void Stun(float duration)
+    {
+        if (InputsAllowed)
+        {
+            InputsAllowed = false;
+            StartCoroutine(StunCoroutine(duration));
+        }
+    }
+
+    private IEnumerator StunCoroutine(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        InputsAllowed = true;
     }
 }

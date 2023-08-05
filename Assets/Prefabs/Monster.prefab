@@ -259,7 +259,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  SR: {fileID: 0}
+  SR: {fileID: 7541490285684365829}
   sprites:
   - {fileID: 21300000, guid: 446dfdc72714a4e40a7138c58fe1c2f1, type: 3}
   - {fileID: 21300000, guid: 4eeea4f9222f0074e8f3b40d0abd5f21, type: 3}

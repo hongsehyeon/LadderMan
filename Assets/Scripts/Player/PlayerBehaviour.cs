@@ -200,12 +200,15 @@ public class PlayerBehaviour : NetworkBehaviour
 
     public void Stun(float duration)
     {
-        StartCoroutine(StunCoroutine(duration));
+        if (InputsAllowed)
+        {
+            InputsAllowed = false;
+            StartCoroutine(StunCoroutine(duration));
+        }
     }
 
     private IEnumerator StunCoroutine(float duration)
     {
-        InputsAllowed = false;
         yield return new WaitForSeconds(duration);
         InputsAllowed = true;
     }

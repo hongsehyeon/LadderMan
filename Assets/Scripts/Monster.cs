@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Monster : NetworkBehaviour
 {
+    [SerializeField] SpriteRenderer SR;
+    [SerializeField] Sprite[] sprites;
+
     int _dir;
     [SerializeField] private float _speed;
 
@@ -15,6 +18,13 @@ public class Monster : NetworkBehaviour
     [SerializeField] float _moveTimeTerm; 
 
     [SerializeField] LayerMask _groundLayer;
+
+    public override void Spawned()
+    {
+        base.Spawned();
+        SR.sprite = sprites[Random.Range(0, sprites.Length)];
+    }
+
     public override void FixedUpdateNetwork()
     {
         base.FixedUpdateNetwork();
@@ -39,6 +49,8 @@ public class Monster : NetworkBehaviour
         else
         {
             _dir = (Random.Range(0, 2) == 0) ? -1 : 1;
+            if (_dir == -1) SR.flipX = true;
+            else if (_dir == 1) SR.flipX = false;
             _nextMoveTime = Time.time + _moveTime;
         }
     }

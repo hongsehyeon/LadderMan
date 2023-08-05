@@ -55,6 +55,12 @@ public class PlayerLadderController : NetworkBehaviour
                 ladder.LadderColor = playerColor;
                 _myLadders.Add(ladder);
 
+                if(_lastLadderObject != null)
+                    _lastLadderObject.GetComponent<Ladder>().Outline.SetActive(false);
+
+                _lastLadderObject = ladder.gameObject;
+                _lastLadderObject.GetComponent<Ladder>().Outline.SetActive(true);
+
                 _ladderInstallTimer = TickTimer.CreateFromSeconds(Runner, _installCooltime);
             }
             if (input.GetButton(InputButton.RECALL))
@@ -81,8 +87,15 @@ public class PlayerLadderController : NetworkBehaviour
         {
             if (_lastLadderObject != null) _lastLadderObject.GetComponent<Ladder>().Outline.SetActive(false);
 
-            _lastLadderObject = ladder.gameObject;
-            _lastLadderObject.GetComponent<Ladder>().Outline.SetActive(true);
+            Ladder LadderScript = ladder.GetComponent<Ladder>();
+
+            while(LadderScript.NextLadder != null)
+            {
+                LadderScript = LadderScript.NextLadder;
+            }
+
+            _lastLadderObject = LadderScript.gameObject;
+            LadderScript.Outline.SetActive(true);
         }
         else
         {

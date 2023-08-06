@@ -31,7 +31,7 @@ public class InputHandler : NetworkBehaviour, INetworkRunnerCallbacks
         currentInput.Buttons.Set(InputButton.UP, Input.GetKey(KeyCode.W));
         currentInput.Buttons.Set(InputButton.DOWN, Input.GetKey(KeyCode.S));
 
-        _isInstall = Input.GetKey(KeyCode.Mouse1);
+        _isInstall = Input.GetKey(KeyCode.Mouse0);
         if (_isInstall)
         {
             currentInput.Buttons.Set(InputButton.INSTALL, _isInstall);

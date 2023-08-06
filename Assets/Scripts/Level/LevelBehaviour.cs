@@ -5,6 +5,7 @@ using TMPro;
 using Fusion;
 using FusionUtilsEvents;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class LevelBehaviour : NetworkBehaviour
 {
@@ -46,8 +47,8 @@ public class LevelBehaviour : NetworkBehaviour
     {
         FindObjectOfType<PlayerSpawner>().RespawnPlayers(Runner);
         _finishRace = FindObjectOfType<FinishRaceScreen>();
-        StartLevel();
-        SpawnLava();
+
+        StartCoroutine(LevelStartCor());
     }
 
     private void OnEnable()
@@ -83,6 +84,12 @@ public class LevelBehaviour : NetworkBehaviour
             Runner.Spawn(_lavaPrefab);
     }
 
+    IEnumerator LevelStartCor()
+    {
+        StartLevel();
+        yield return new WaitForSeconds(3);
+        SpawnLava();
+    }
     private void StartLevelMusic()
     {
         MusicChannel.CallMusicEvent(LevelMusic);

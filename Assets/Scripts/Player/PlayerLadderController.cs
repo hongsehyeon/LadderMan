@@ -6,6 +6,7 @@ using System.Linq;
 public class PlayerLadderController : NetworkBehaviour
 {
     [SerializeField] private int _ladderAmount;
+    public int LadderAmount { get { return _ladderAmount; } set { _ladderAmount = value; IngameUIManager.Instance.ChangeLadderCount(_ladderAmount); } }
     [SerializeField] private float _sensingRadius;
     [SerializeField] private LayerMask _ladderLayerMask;
 
@@ -40,6 +41,7 @@ public class PlayerLadderController : NetworkBehaviour
         _ladderInstallTimer = TickTimer.CreateFromSeconds(Runner, 0);
         _ladderRecallTimer = TickTimer.CreateFromSeconds(Runner, 0);
         playerColor = GetComponentInChildren<PlayerBehaviour>().PlayerColor;
+        IngameUIManager.Instance.ChangeLadderCount(_ladderAmount);
     }
 
     public override void FixedUpdateNetwork()
@@ -50,6 +52,8 @@ public class PlayerLadderController : NetworkBehaviour
             {
                 if (_ladderAmount <= 0) return;
                 if (_ladderInstallTimer.Expired(Runner) == false) return;
+
+                _ladderAmount--;
 
                 Collider2D col = SenseLadder();
 
@@ -68,6 +72,8 @@ public class PlayerLadderController : NetworkBehaviour
 
                 _ladderInstallTimer = TickTimer.CreateFromSeconds(Runner, _installCooltime);
                 RPC_InstallEffect();
+
+                IngameUIManager.Instance.UseLadder(_installCooltime);
             }
             if (input.GetButton(InputButton.RECALL))
             {
@@ -82,6 +88,8 @@ public class PlayerLadderController : NetworkBehaviour
                 LadderManager.Instance.RecallLadder(myLadder);
                 _ladderRecallTimer = TickTimer.CreateFromSeconds(Runner, _installCooltime);
                 RPC_RecallEffect();
+                LadderAmount++;
+
             }
         }
     }

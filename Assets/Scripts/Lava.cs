@@ -18,6 +18,6 @@ public class Lava : NetworkBehaviour
     public override void FixedUpdateNetwork()
     {
         if (IsEnd == true) return;
-        transform.Translate((0.1f + _levelBehaviour.Score * 0.08f) * Runner.DeltaTime * Vector3.up);
+        transform.Translate((0.1f + _levelBehaviour.Score * 0.02f) * Runner.DeltaTime * Vector3.up);
     }
 }

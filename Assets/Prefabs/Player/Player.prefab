@@ -777,14 +777,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 1
-  _ladderAmount: 10
+  _ladderAmount: 1
   _sensingRadius: 0.6
   _ladderLayerMask:
     serializedVersion: 2
     m_Bits: 64
   _myLadders: []
-  _installCooltime: 1
-  _recallCooltime: 1
+  _installCooltime: 0.5
+  _recallCooltime: 0.5
   _sfxChannel: {fileID: 11400000, guid: dda0dbbebab449245ab5320da422e686, type: 2}
   _playerSource: {fileID: 2587611712234676105}
   _installSound: {fileID: 11400000, guid: f06bdcc2f66f020469f06d067e67bfbc, type: 2}

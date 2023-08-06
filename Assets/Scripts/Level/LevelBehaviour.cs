@@ -38,6 +38,10 @@ public class LevelBehaviour : NetworkBehaviour
     public SoundSO LevelMusic;
     public SoundChannelSO MusicChannel;
 
+    [SerializeField] private SoundSO _gameEndSFX;
+    [SerializeField] private SoundSO _gameEndMusic;
+    public SoundChannelSO SFXChannel;
+
     public override void Spawned()
     {
         FindObjectOfType<PlayerSpawner>().RespawnPlayers(Runner);
@@ -119,6 +123,8 @@ public class LevelBehaviour : NetworkBehaviour
     /// <param name="player"></param>
     public void PlayerOnDie(PlayerRef player, PlayerBehaviour playerBehaviour)
     {
+        MusicChannel.CallSoundEvent(_gameEndMusic);
+        SFXChannel.CallSoundEvent(_gameEndSFX);
         if (_playersAlreadyFinish >= 3 || Winners.Contains(player)) { return; }
 
         Winners.Set(_playersAlreadyFinish, player.PlayerId);

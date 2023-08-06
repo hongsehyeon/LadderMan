@@ -87,7 +87,8 @@ public class PlayerLadderController : NetworkBehaviour
                 LadderManager.Instance.RecallLadder(myLadder);
                 _ladderRecallTimer = TickTimer.CreateFromSeconds(Runner, _installCooltime);
                 RPC_RecallEffect();
-                _ladderAmount++;
+                LadderAmount++;
+
             }
         }
     }

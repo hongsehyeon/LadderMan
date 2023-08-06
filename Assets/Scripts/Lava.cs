@@ -8,14 +8,16 @@ public class Lava : NetworkBehaviour
     /// </summary>
     public NetworkBool IsEnd { get; set; } // TODO: 나중에 매니저 참조해서 가져오기
 
-    /// <summary>
-    /// 용암 수위 상승 스피드
-    /// </summary>
-    [SerializeField] private float _speed;
+    private LevelBehaviour _levelBehaviour;
+
+    public override void Spawned()
+    {
+        _levelBehaviour = FindObjectOfType<LevelBehaviour>();
+    }
 
     public override void FixedUpdateNetwork()
     {
         if (IsEnd == true) return;
-        transform.Translate(_speed * Runner.DeltaTime * Vector3.up);
+        transform.Translate((0.1f + _levelBehaviour.Score * 0.08f) * Runner.DeltaTime * Vector3.up);
     }
 }

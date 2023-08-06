@@ -1,11 +1,13 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class FinishRaceScreen : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI[] _winnerNickText = new TextMeshProUGUI[3];
     [SerializeField] private Image[] _winnerImage = new Image[3];
+    [SerializeField] private TextMeshProUGUI _heightText;
 
     private Animator _anim;
 
@@ -22,6 +24,8 @@ public class FinishRaceScreen : MonoBehaviour
         _winnerImage[place].gameObject.SetActive(true);
         _winnerNickText[place].gameObject.SetActive(true);
     }
+
+    public void SetHeight(float height) => _heightText.text = $"{Math.Truncate(height * 10) / 10}m";
 
     public void FadeIn()
     {

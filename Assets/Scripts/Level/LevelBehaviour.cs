@@ -172,6 +172,8 @@ public class LevelBehaviour : NetworkBehaviour
             }
         }
 
+        _finishRace.SetHeight(Score);
+
         _finishRace.FadeIn();
 
         _finishRace.Invoke("FadeOut", 5f);

@@ -1787,6 +1787,7 @@ MonoBehaviour:
   - {fileID: 1127289973}
   - {fileID: 965990163}
   - {fileID: 817545242}
+  _heightText: {fileID: 1323225222}
 --- !u!95 &536290034
 Animator:
   serializedVersion: 5

@@ -116,7 +116,7 @@ public class LevelBehaviour : NetworkBehaviour
     /// Register player as winner.
     /// </summary>
     /// <param name="player"></param>
-    public void PlayerOnFinishLine(PlayerRef player, PlayerBehaviour playerBehaviour)
+    public void PlayerOnDie(PlayerRef player, PlayerBehaviour playerBehaviour)
     {
         if (_playersAlreadyFinish >= 3 || Winners.Contains(player)) { return; }
 
@@ -149,6 +149,8 @@ public class LevelBehaviour : NetworkBehaviour
     [Rpc(sources: RpcSources.StateAuthority, targets: RpcTargets.All)]
     private void RPC_FinishLevel()
     {
+        Winners.Reverse();
+
         int i = 0;
         foreach (var player in Winners)
         {

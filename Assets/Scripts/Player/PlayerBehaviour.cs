@@ -18,13 +18,14 @@ public class PlayerBehaviour : NetworkBehaviour
     private InputHandler _inputController;
     private Collider2D _collider;
     private Collider2D _hitCollider;
+    [SerializeField] float _stunDuration = 0.5f;
 
     [Networked]
     private TickTimer RespawnTimer { get; set; }
     [Networked(OnChanged = nameof(OnSpawningChange))]
     private NetworkBool Respawning { get; set; }
     [Networked]
-    private NetworkBool Finished { get; set; }
+    private NetworkBool IsDead { get; set; }
     [Networked]
     public NetworkBool InputsAllowed { get; set; }
 
@@ -125,22 +126,13 @@ public class PlayerBehaviour : NetworkBehaviour
 
     public override void FixedUpdateNetwork()
     {
-
         DetectCollisions();
 
         if (GetInput<InputData>(out var input) && InputsAllowed)
         {
             if (input.GetButtonPressed(_inputController.PrevButtons).IsSet(InputButton.RESPAWN) && !Respawning)
             {
-                RequestRespawn();
-            }
-        }
-
-        if (Respawning)
-        {
-            if (RespawnTimer.Expired(Runner))
-            {
-                StartCoroutine(Respawn());
+                Die();
             }
         }
     }
@@ -158,9 +150,9 @@ public class PlayerBehaviour : NetworkBehaviour
         SetInputsAllowed(true);
     }
 
-    private void FinishRace()
+    public void Die()
     {
-        if (Finished) { return; }
+        if (IsDead) { return; }
 
         if (Object.HasInputAuthority)
         {
@@ -169,17 +161,9 @@ public class PlayerBehaviour : NetworkBehaviour
 
         if (Runner.IsServer)
         {
-            FindObjectOfType<LevelBehaviour>().PlayerOnFinishLine(Object.InputAuthority, this);
-            Finished = true;
+            FindObjectOfType<LevelBehaviour>().PlayerOnDie(Object.InputAuthority, this);
+            IsDead = true;
         }
-    }
-
-    public void RequestRespawn()
-    {
-        Respawning = true;
-        SetInputsAllowed(false);
-        RespawnTimer = TickTimer.CreateFromSeconds(Runner, 1f);
-        SetRespawning();
     }
 
     private void DetectCollisions()
@@ -187,29 +171,29 @@ public class PlayerBehaviour : NetworkBehaviour
         _hitCollider = Runner.GetPhysicsScene2D().OverlapBox(transform.position, _collider.bounds.size * .9f, 0, LayerMask.GetMask("Interact"));
         if (_hitCollider != default)
         {
-            if (_hitCollider.tag.Equals("Kill") && !Respawning)
+            if (_hitCollider.CompareTag("Lava"))
             {
-                RequestRespawn();
+                Die();
             }
-            else if (_hitCollider.tag.Equals("Finish") && !Finished)
+            else if (_hitCollider.CompareTag("Monster") && InputsAllowed)
             {
-                FinishRace();
+                Stun();
             }
         }
     }
 
-    public void Stun(float duration)
+    public void Stun()
     {
         if (InputsAllowed)
         {
             InputsAllowed = false;
-            StartCoroutine(StunCoroutine(duration));
+            StartCoroutine(StunCoroutine());
         }
     }
 
-    private IEnumerator StunCoroutine(float duration)
+    private IEnumerator StunCoroutine()
     {
-        yield return new WaitForSeconds(duration);
+        yield return new WaitForSeconds(_stunDuration);
         InputsAllowed = true;
     }
 }

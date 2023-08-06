@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4782869502077653376}
   - component: {fileID: 8932745340039430518}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 7431103143357754958}
   - component: {fileID: 1350243243344163005}
   - component: {fileID: 2062624412815682765}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Lava
   m_TagString: Lava
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  _speed: 0.3
+  _speed: 0.1
 --- !u!114 &7914501279602125003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,7 +232,7 @@ GameObject:
   - component: {fileID: 2984730928308410525}
   - component: {fileID: 7785611798394731842}
   - component: {fileID: 3806216390420100755}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}

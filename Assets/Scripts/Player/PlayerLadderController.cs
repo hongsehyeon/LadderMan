@@ -41,6 +41,7 @@ public class PlayerLadderController : NetworkBehaviour
         _ladderInstallTimer = TickTimer.CreateFromSeconds(Runner, 0);
         _ladderRecallTimer = TickTimer.CreateFromSeconds(Runner, 0);
         playerColor = GetComponentInChildren<PlayerBehaviour>().PlayerColor;
+        IngameUIManager.Instance.ChangeLadderCount(_ladderAmount);
     }
 
     public override void FixedUpdateNetwork()

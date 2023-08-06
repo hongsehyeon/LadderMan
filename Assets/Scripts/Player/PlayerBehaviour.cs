@@ -20,6 +20,8 @@ public class PlayerBehaviour : NetworkBehaviour
     private Collider2D _hitCollider;
     [SerializeField] float _stunDuration = 0.5f;
 
+    [SerializeField] private SpriteRenderer[] SR;
+
     [Networked]
     private TickTimer RespawnTimer { get; set; }
     [Networked(OnChanged = nameof(OnSpawningChange))]
@@ -28,6 +30,7 @@ public class PlayerBehaviour : NetworkBehaviour
     private NetworkBool IsDead { get; set; }
     [Networked]
     public NetworkBool InputsAllowed { get; set; }
+    public NetworkBool isStunCoolTime { get; set; }
 
 
     [SerializeField] private ParticleManager _particleManager;
@@ -192,7 +195,7 @@ public class PlayerBehaviour : NetworkBehaviour
 
     public void Stun()
     {
-        if (InputsAllowed)
+        if (InputsAllowed && !isStunCoolTime)
         {
             InputsAllowed = false;
             StartCoroutine(StunCoroutine());
@@ -202,7 +205,20 @@ public class PlayerBehaviour : NetworkBehaviour
 
     private IEnumerator StunCoroutine()
     {
+        isStunCoolTime = true;
         yield return new WaitForSeconds(_stunDuration);
         InputsAllowed = true;
+
+        foreach (SpriteRenderer sr in SR)
+        {
+            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.6f);
+        }
+        yield return new WaitForSeconds(1);
+
+        foreach (SpriteRenderer sr in SR)
+        {
+            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 1f);
+        }
+        isStunCoolTime = false;
     }
 }

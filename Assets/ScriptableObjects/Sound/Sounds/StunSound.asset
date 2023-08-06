@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c18727a5dba7a9642ab810b339e4ceb1, type: 3}
-  m_Name: DeathSound
+  m_Name: StunSound
   m_EditorClassIdentifier: 
   SoundVariations:
-  - {fileID: 8300000, guid: 5039414d94a6e4e70a5ab9e8833e992a, type: 3}
+  - {fileID: 8300000, guid: 130a177e727814a2ea78a886ab72213d, type: 3}

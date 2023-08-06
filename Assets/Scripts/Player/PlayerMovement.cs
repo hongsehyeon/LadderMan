@@ -171,8 +171,7 @@ public class PlayerMovement : NetworkBehaviour
                     _canWalk = false;
                     _legAnim.clip = _jumpClip;
                     _legAnim.Play();
-                    PlayJumpSound();
-                    //RPC_PlayJumpEffects((Vector2)transform.position - Vector2.up * .5f);
+                    RPC_PlayJumpEffects((Vector2)transform.position - Vector2.up * .5f);
                 }
             }
         }
@@ -181,7 +180,7 @@ public class PlayerMovement : NetworkBehaviour
     [Rpc(sources: RpcSources.InputAuthority, RpcTargets.All)]
     private void RPC_PlayJumpEffects(Vector2 particlePos)
     {
-        //PlayJumpSound();
+        PlayJumpSound();
         //PlayJumpParticle(particlePos);
     }
 

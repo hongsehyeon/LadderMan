@@ -723,6 +723,7 @@ MonoBehaviour:
     _value: 0
   _particleManager: {fileID: 11400000, guid: 0423cc74373584a4e90ff094dc08a71b, type: 2}
   _sfxChannel: {fileID: 11400000, guid: dda0dbbebab449245ab5320da422e686, type: 2}
+  _stunSound: {fileID: 11400000, guid: 55f1a64b63fffa644a3c4121b677258d, type: 2}
   _deathSound: {fileID: 11400000, guid: b786c41e078a48d4989e3ff64d035764, type: 2}
   _playerSource: {fileID: 2587611712234676105}
 --- !u!114 &5632907799861441115

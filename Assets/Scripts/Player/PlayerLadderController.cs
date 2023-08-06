@@ -67,8 +67,7 @@ public class PlayerLadderController : NetworkBehaviour
                 _lastLadderObject.GetComponent<Ladder>().Outline.SetActive(true);
 
                 _ladderInstallTimer = TickTimer.CreateFromSeconds(Runner, _installCooltime);
-
-                _sfxChannel.CallSoundEvent(_installSound, Object.HasInputAuthority ? null : _playerSource);
+                RPC_InstallEffect();
             }
             if (input.GetButton(InputButton.RECALL))
             {
@@ -82,7 +81,7 @@ public class PlayerLadderController : NetworkBehaviour
 
                 LadderManager.Instance.RecallLadder(myLadder);
                 _ladderRecallTimer = TickTimer.CreateFromSeconds(Runner, _installCooltime);
-                _sfxChannel.CallSoundEvent(_recallSound, Object.HasInputAuthority ? null : _playerSource);
+                RPC_RecallEffect();
             }
         }
     }
@@ -124,5 +123,17 @@ public class PlayerLadderController : NetworkBehaviour
     public void RemoveLadder(Ladder ladder)
     {
         _myLadders.Remove(ladder);
+    }
+
+    [Rpc(sources: RpcSources.StateAuthority, targets: RpcTargets.All)]
+    private void RPC_InstallEffect()
+    {
+        _sfxChannel.CallSoundEvent(_installSound, Object.HasInputAuthority ? null : _playerSource);
+    }
+
+    [Rpc(sources: RpcSources.StateAuthority, targets: RpcTargets.All)]
+    private void RPC_RecallEffect()
+    {
+        _sfxChannel.CallSoundEvent(_recallSound, Object.HasInputAuthority ? null : _playerSource);
     }
 }

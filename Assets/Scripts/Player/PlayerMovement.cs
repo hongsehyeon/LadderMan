@@ -45,6 +45,11 @@ public class PlayerMovement : NetworkBehaviour
     bool _canWalk;
     bool _canJump;
     bool _flip;
+
+
+    [Space()]
+    [Header("Sound")]
+    public SoundSO _jumpSFX;
     private void Awake()
     {
         _nt = GetComponent<NetworkTransform>();
@@ -166,7 +171,7 @@ public class PlayerMovement : NetworkBehaviour
                     _canWalk = false;
                     _legAnim.clip = _jumpClip;
                     _legAnim.Play();
-                    //RPC_PlayJumpEffects((Vector2)transform.position - Vector2.up * .5f);
+                    RPC_PlayJumpEffects((Vector2)transform.position - Vector2.up * .5f);
                 }
             }
         }
@@ -176,7 +181,7 @@ public class PlayerMovement : NetworkBehaviour
     private void RPC_PlayJumpEffects(Vector2 particlePos)
     {
         PlayJumpSound();
-        PlayJumpParticle(particlePos);
+        //PlayJumpParticle(particlePos);
     }
 
     private void PlayJumpSound()

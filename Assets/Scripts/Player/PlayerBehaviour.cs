@@ -35,6 +35,7 @@ public class PlayerBehaviour : NetworkBehaviour
     [Space()]
     [Header("Sound")]
     [SerializeField] private SoundChannelSO _sfxChannel;
+    [SerializeField] private SoundSO _stunSound;
     [SerializeField] private SoundSO _deathSound;
     [SerializeField] private AudioSource _playerSource;
 
@@ -110,8 +111,13 @@ public class PlayerBehaviour : NetworkBehaviour
     [Rpc(sources: RpcSources.StateAuthority, targets: RpcTargets.All)]
     private void RPC_DeathEffects()
     {
-        _particleManager.Get(ParticleManager.ParticleID.Death).transform.position = transform.position;
+        //_particleManager.Get(ParticleManager.ParticleID.Death).transform.position = transform.position;
         PlayDeathSound();
+    }
+    [Rpc(sources: RpcSources.StateAuthority, targets: RpcTargets.All)]
+    private void RPC_StunSound()
+    {
+            _sfxChannel.CallSoundEvent(_stunSound);
     }
 
     private void SetGFXActive(bool value)
@@ -157,6 +163,7 @@ public class PlayerBehaviour : NetworkBehaviour
         if (Object.HasInputAuthority)
         {
             GameManager.Instance.SetPlayerSpectating(this);
+            RPC_DeathEffects();
         }
 
         if (Runner.IsServer)
@@ -189,6 +196,7 @@ public class PlayerBehaviour : NetworkBehaviour
         {
             InputsAllowed = false;
             StartCoroutine(StunCoroutine());
+            RPC_StunSound();
         }
     }
 

@@ -718,10 +718,12 @@ MonoBehaviour:
     _data:
       Data: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   _PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  _stunDuration: 0.5
   _InputsAllowed:
     _value: 0
   _particleManager: {fileID: 11400000, guid: 0423cc74373584a4e90ff094dc08a71b, type: 2}
   _sfxChannel: {fileID: 11400000, guid: dda0dbbebab449245ab5320da422e686, type: 2}
+  _stunSound: {fileID: 11400000, guid: 55f1a64b63fffa644a3c4121b677258d, type: 2}
   _deathSound: {fileID: 11400000, guid: b786c41e078a48d4989e3ff64d035764, type: 2}
   _playerSource: {fileID: 2587611712234676105}
 --- !u!114 &5632907799861441115
@@ -756,6 +758,7 @@ MonoBehaviour:
   _legAnim: {fileID: 6421388314393444012}
   _walkClip: {fileID: 7400000, guid: 48a9bc6d93ac6fd4d8753274e629bd83, type: 2}
   _jumpClip: {fileID: 7400000, guid: 7a0b4309b9f09f94e9782d825f3c327f, type: 2}
+  _jumpSFX: {fileID: 11400000, guid: ae24550c5d7d1084fbc9737e535648d0, type: 2}
 --- !u!114 &2699472437234053353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -777,6 +780,10 @@ MonoBehaviour:
   _myLadders: []
   _installCooltime: 1
   _recallCooltime: 1
+  _sfxChannel: {fileID: 11400000, guid: dda0dbbebab449245ab5320da422e686, type: 2}
+  _playerSource: {fileID: 2587611712234676105}
+  _installSound: {fileID: 11400000, guid: f06bdcc2f66f020469f06d067e67bfbc, type: 2}
+  _recallSound: {fileID: 11400000, guid: 53207513e2fa63145ae8f40bb8482839, type: 2}
 --- !u!1 &4537784839959663660
 GameObject:
   m_ObjectHideFlags: 0

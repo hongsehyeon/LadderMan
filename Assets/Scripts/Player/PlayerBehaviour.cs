@@ -20,6 +20,8 @@ public class PlayerBehaviour : NetworkBehaviour
     private Collider2D _hitCollider;
     [SerializeField] float _stunDuration = 0.5f;
 
+    [SerializeField] private SpriteRenderer[] SR;
+
     [Networked]
     private TickTimer RespawnTimer { get; set; }
     [Networked(OnChanged = nameof(OnSpawningChange))]
@@ -28,6 +30,7 @@ public class PlayerBehaviour : NetworkBehaviour
     private NetworkBool IsDead { get; set; }
     [Networked]
     public NetworkBool InputsAllowed { get; set; }
+    public NetworkBool isStunCoolTime { get; set; }
 
 
     [SerializeField] private ParticleManager _particleManager;
@@ -138,7 +141,7 @@ public class PlayerBehaviour : NetworkBehaviour
         {
             if (input.GetButtonPressed(_inputController.PrevButtons).IsSet(InputButton.RESPAWN) && !Respawning)
             {
-                Die();
+                RPC_Die();
             }
         }
     }
@@ -154,6 +157,12 @@ public class PlayerBehaviour : NetworkBehaviour
         yield return new WaitForSeconds(.1f);
         Respawning = false;
         SetInputsAllowed(true);
+    }
+
+    [Rpc(sources: RpcSources.StateAuthority, targets: RpcTargets.All)]
+    public void RPC_Die()
+    {
+        Die();
     }
 
     public void Die()
@@ -185,14 +194,19 @@ public class PlayerBehaviour : NetworkBehaviour
             }
             else if (_hitCollider.CompareTag("Monster") && InputsAllowed)
             {
-                Stun();
+                RPC_Stun();
             }
         }
     }
 
+    [Rpc(sources: RpcSources.StateAuthority, targets: RpcTargets.All)]
+    public void RPC_Stun()
+    {
+        Stun();
+    }
     public void Stun()
     {
-        if (InputsAllowed)
+        if (InputsAllowed && !isStunCoolTime)
         {
             InputsAllowed = false;
             StartCoroutine(StunCoroutine());
@@ -202,7 +216,27 @@ public class PlayerBehaviour : NetworkBehaviour
 
     private IEnumerator StunCoroutine()
     {
+        isStunCoolTime = true;
+        foreach (SpriteRenderer sr in SR)
+        {
+            sr.color = new Color(255,0,0, 1f);
+        }
         yield return new WaitForSeconds(_stunDuration);
         InputsAllowed = true;
+        foreach (SpriteRenderer sr in SR)
+        {
+            sr.color = PlayerColor;
+        }
+        foreach (SpriteRenderer sr in SR)
+        {
+            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.6f);
+        }
+        yield return new WaitForSeconds(1);
+
+        foreach (SpriteRenderer sr in SR)
+        {
+            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 1f);
+        }
+        isStunCoolTime = false;
     }
 }

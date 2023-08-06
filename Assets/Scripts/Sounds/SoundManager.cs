@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
@@ -6,7 +6,6 @@ public class SoundManager : MonoBehaviour
     public SoundChannelSO MusicChannel;
     private AudioSource _sfxSource;
     private AudioSource _musicSource;
-
     private void Awake()
     {
         SetupAudioSources();

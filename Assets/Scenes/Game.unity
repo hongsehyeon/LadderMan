@@ -4218,6 +4218,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SFXChannel: {fileID: 11400000, guid: dda0dbbebab449245ab5320da422e686, type: 2}
   MusicChannel: {fileID: 11400000, guid: ff30530660116884180783d129596dca, type: 2}
+  _backgroundMusic: {fileID: 11400000, guid: 9bb23aa237b4fe54bafda85de70a2182, type: 2}
 --- !u!114 &2097251894
 MonoBehaviour:
   m_ObjectHideFlags: 0

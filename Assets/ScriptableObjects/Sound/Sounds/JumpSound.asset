@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c18727a5dba7a9642ab810b339e4ceb1, type: 3}
   m_Name: JumpSound
   m_EditorClassIdentifier: 
-  SoundVariations: []
+  SoundVariations:
+  - {fileID: 8300000, guid: 2c5292ba5cf254919a6b9e2b18e04f49, type: 3}

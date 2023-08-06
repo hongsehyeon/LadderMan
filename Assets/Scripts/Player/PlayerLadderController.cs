@@ -23,10 +23,16 @@ public class PlayerLadderController : NetworkBehaviour
 
     Color playerColor;
 
+    [Header("Sound")]
+    [SerializeField] private SoundChannelSO _sfxChannel;
+    [SerializeField] private AudioSource _playerSource;
+    [SerializeField] private SoundSO _installSound;
+    [SerializeField] private SoundSO _recallSound;
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position,_sensingRadius);
+        Gizmos.DrawWireSphere(transform.position, _sensingRadius);
     }
 
     public override void Spawned()
@@ -48,19 +54,21 @@ public class PlayerLadderController : NetworkBehaviour
                 Collider2D col = SenseLadder();
 
                 Ladder ladder;
-                if(col == null) ladder = LadderManager.Instance.InstallLadder(this, transform);
+                if (col == null) ladder = LadderManager.Instance.InstallLadder(this, transform);
                 else ladder = LadderManager.Instance.InstallContinuedLadder(this, col.gameObject.GetComponentInChildren<Ladder>());
 
                 ladder.LadderColor = playerColor;
                 _myLadders.Add(ladder);
 
-                if(_lastLadderObject != null)
+                if (_lastLadderObject != null)
                     _lastLadderObject.GetComponent<Ladder>().Outline.SetActive(false);
 
                 _lastLadderObject = ladder.gameObject;
                 _lastLadderObject.GetComponent<Ladder>().Outline.SetActive(true);
 
                 _ladderInstallTimer = TickTimer.CreateFromSeconds(Runner, _installCooltime);
+
+                _sfxChannel.CallSoundEvent(_installSound, Object.HasInputAuthority ? null : _playerSource);
             }
             if (input.GetButton(InputButton.RECALL))
             {
@@ -74,21 +82,23 @@ public class PlayerLadderController : NetworkBehaviour
 
                 LadderManager.Instance.RecallLadder(myLadder);
                 _ladderRecallTimer = TickTimer.CreateFromSeconds(Runner, _installCooltime);
+                _sfxChannel.CallSoundEvent(_recallSound, Object.HasInputAuthority ? null : _playerSource);
             }
         }
     }
+
 
     private void Update()
     {
         Collider2D ladder = SenseLadder();
 
-        if(ladder != null)
+        if (ladder != null)
         {
             if (_lastLadderObject != null) _lastLadderObject.GetComponent<Ladder>().Outline.SetActive(false);
 
             Ladder LadderScript = ladder.GetComponent<Ladder>();
 
-            while(LadderScript.NextLadder != null)
+            while (LadderScript.NextLadder != null)
             {
                 LadderScript = LadderScript.NextLadder;
             }

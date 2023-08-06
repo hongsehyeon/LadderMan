@@ -217,9 +217,16 @@ public class PlayerBehaviour : NetworkBehaviour
     private IEnumerator StunCoroutine()
     {
         isStunCoolTime = true;
+        foreach (SpriteRenderer sr in SR)
+        {
+            sr.color = new Color(255,0,0, 1f);
+        }
         yield return new WaitForSeconds(_stunDuration);
         InputsAllowed = true;
-
+        foreach (SpriteRenderer sr in SR)
+        {
+            sr.color = PlayerColor;
+        }
         foreach (SpriteRenderer sr in SR)
         {
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.6f);

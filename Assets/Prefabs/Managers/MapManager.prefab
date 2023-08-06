@@ -47,7 +47,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   _mapPrefab:
-  - RawGuidValue: 4a345a9a479c7034ba889a02e729dd69
+  - RawGuidValue: 50150bcf63547004e86ee2d23f1ec15c
+  - RawGuidValue: 21cf06a7fcdcdb84483d0ae6c8741a3d
+  - RawGuidValue: 7b20511c45681134c93578b0269ed248
+  - RawGuidValue: 71e575b9837b4f049b414eac64bbf2db
+  - RawGuidValue: bd78cc0cd978f96469666861918563e4
   _mapPosInterval: 10
 --- !u!114 &5790410352028726789
 MonoBehaviour:

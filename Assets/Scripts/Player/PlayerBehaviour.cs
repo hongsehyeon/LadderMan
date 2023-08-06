@@ -141,7 +141,7 @@ public class PlayerBehaviour : NetworkBehaviour
         {
             if (input.GetButtonPressed(_inputController.PrevButtons).IsSet(InputButton.RESPAWN) && !Respawning)
             {
-                Die();
+                RPC_Die();
             }
         }
     }
@@ -157,6 +157,12 @@ public class PlayerBehaviour : NetworkBehaviour
         yield return new WaitForSeconds(.1f);
         Respawning = false;
         SetInputsAllowed(true);
+    }
+
+    [Rpc(sources: RpcSources.StateAuthority, targets: RpcTargets.All)]
+    public void RPC_Die()
+    {
+        Die();
     }
 
     public void Die()
@@ -188,11 +194,16 @@ public class PlayerBehaviour : NetworkBehaviour
             }
             else if (_hitCollider.CompareTag("Monster") && InputsAllowed)
             {
-                Stun();
+                RPC_Stun();
             }
         }
     }
 
+    [Rpc(sources: RpcSources.StateAuthority, targets: RpcTargets.All)]
+    public void RPC_Stun()
+    {
+        Stun();
+    }
     public void Stun()
     {
         if (InputsAllowed && !isStunCoolTime)

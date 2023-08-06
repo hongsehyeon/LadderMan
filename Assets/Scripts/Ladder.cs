@@ -39,7 +39,6 @@ public class Ladder : NetworkBehaviour
         if (collision.CompareTag("Lava"))
         {
             Owner.RemoveLadder(this);
-            Owner.LadderAmount--;
             Destroy(gameObject);
         }
     }

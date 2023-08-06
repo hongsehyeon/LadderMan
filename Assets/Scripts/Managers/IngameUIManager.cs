@@ -34,12 +34,13 @@ public class IngameUIManager : MonoBehaviour
     {
         cooltimeImg.fillAmount = 1;
 
-        float starttime = Time.time;
+        float endTime = Time.time + cooltime;
+
         while(cooltimeImg.fillAmount > 0)
         {
             yield return null;
-
-            cooltimeImg.fillAmount = 1 - Time.time - starttime;
+            Debug.Log(Time.time - endTime / cooltime);
+            cooltimeImg.fillAmount = 100 - Time.time/endTime * 100;
         }
 
         cooltimeImg.fillAmount = 0;

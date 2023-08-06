@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using Fusion;
 using FusionUtilsEvents;
+using UnityEngine.SceneManagement;
 
 public class LevelBehaviour : NetworkBehaviour
 {
@@ -26,7 +27,7 @@ public class LevelBehaviour : NetworkBehaviour
     [SerializeField]
     private int _playersAlreadyFinish = 0;
 
-    [Networked, Capacity(3)]
+    [Networked, Capacity(8)]
     private NetworkArray<int> _winners => default;
     public NetworkArray<int> Winners { get => _winners; }
 
@@ -116,7 +117,7 @@ public class LevelBehaviour : NetworkBehaviour
     /// Register player as winner.
     /// </summary>
     /// <param name="player"></param>
-    public void PlayerOnFinishLine(PlayerRef player, PlayerBehaviour playerBehaviour)
+    public void PlayerOnDie(PlayerRef player, PlayerBehaviour playerBehaviour)
     {
         if (_playersAlreadyFinish >= 3 || Winners.Contains(player)) { return; }
 
@@ -126,7 +127,7 @@ public class LevelBehaviour : NetworkBehaviour
 
         playerBehaviour.SetInputsAllowed(false);
 
-        if (_playersAlreadyFinish >= 3 || _playersAlreadyFinish >= Runner.ActivePlayers.Count())
+        if (_playersAlreadyFinish >= Runner.ActivePlayers.Count())
         {
             RPC_FinishLevel();
             return;
@@ -137,7 +138,7 @@ public class LevelBehaviour : NetworkBehaviour
     private void CheckWinnersOnPlayerDisconnect(PlayerRef player, NetworkRunner runner)
     {
         Debug.Log(runner.ActivePlayers.Count());
-        if (_playersAlreadyFinish >= 3 || _playersAlreadyFinish >= runner.ActivePlayers.Count())
+        if (_playersAlreadyFinish >= runner.ActivePlayers.Count())
         {
             RPC_FinishLevel();
         }
@@ -149,22 +150,26 @@ public class LevelBehaviour : NetworkBehaviour
     [Rpc(sources: RpcSources.StateAuthority, targets: RpcTargets.All)]
     private void RPC_FinishLevel()
     {
-        int i = 0;
-        foreach (var player in Winners)
+        for (int i = 0; i < 3; i++)
         {
-            PlayerData data = GameManager.Instance.GetPlayerData(player, Runner);
+            PlayerData data = GameManager.Instance.GetPlayerData(Winners[i], Runner);
             if (data != null)
             {
                 _finishRace.SetWinner(data.Nick.ToString(), data.Instance.GetComponent<PlayerBehaviour>().PlayerColor, i);
             }
-            i++;
         }
 
         _finishRace.FadeIn();
 
         _finishRace.Invoke("FadeOut", 5f);
 
-        Invoke("NextLevel", 5f);
+        Invoke("Disconnect", 5f);
+    }
+
+    private void Disconnect()
+    {
+        Runner.Shutdown();
+        SceneManager.LoadScene("Lobby");
     }
 
     private void RandomLevel()
@@ -190,7 +195,7 @@ public class LevelBehaviour : NetworkBehaviour
         _timerText.gameObject.SetActive(true);
         _scoreText.gameObject.SetActive(true);
         _startWall.gameObject.SetActive(true);
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 8; i++)
         {
             Winners.Set(i, -1);
         }

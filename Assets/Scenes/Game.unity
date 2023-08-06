@@ -1723,7 +1723,7 @@ Transform:
   m_GameObject: {fileID: 485124062}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -10, z: 0}
   m_LocalScale: {x: 20, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1739,6 +1739,7 @@ GameObject:
   m_Component:
   - component: {fileID: 536290032}
   - component: {fileID: 536290033}
+  - component: {fileID: 536290034}
   m_Layer: 0
   m_Name: FinishRaceScreen
   m_TagString: Untagged
@@ -1786,6 +1787,27 @@ MonoBehaviour:
   - {fileID: 1127289973}
   - {fileID: 965990163}
   - {fileID: 817545242}
+--- !u!95 &536290034
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 536290031}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 462701810a54e3443a074132b5eccd48, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &537502707
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3009,7 +3031,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300002, guid: 3f3f6abcce67a7145aba743500d5946e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3084,7 +3106,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300002, guid: 3f3f6abcce67a7145aba743500d5946e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3265,7 +3287,7 @@ GameObject:
   - component: {fileID: 1072628599}
   - component: {fileID: 1072628598}
   m_Layer: 0
-  m_Name: Panel
+  m_Name: Painel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3386,7 +3408,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300002, guid: 3f3f6abcce67a7145aba743500d5946e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3672,7 +3694,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1224167497}
   m_CullTransparentMesh: 1
-
 --- !u!1 &1674384687
 GameObject:
   m_ObjectHideFlags: 0

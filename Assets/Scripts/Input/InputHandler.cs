@@ -18,15 +18,8 @@ public class InputHandler : NetworkBehaviour, INetworkRunnerCallbacks
         }
     }
 
-    #region MouseInput 
-
     bool _isInstall;
-    private void Update()
-    {
-        _isInstall = Input.GetMouseButton(1);
-    }
 
-    #endregion
     public void OnInput(NetworkRunner runner, NetworkInput input)
     {
         InputData currentInput = new InputData();
@@ -38,6 +31,7 @@ public class InputHandler : NetworkBehaviour, INetworkRunnerCallbacks
         currentInput.Buttons.Set(InputButton.UP, Input.GetKey(KeyCode.W));
         currentInput.Buttons.Set(InputButton.DOWN, Input.GetKey(KeyCode.S));
 
+        _isInstall = Input.GetKey(KeyCode.Mouse1);
         if (_isInstall)
         {
             currentInput.Buttons.Set(InputButton.INSTALL, _isInstall);
@@ -46,8 +40,6 @@ public class InputHandler : NetworkBehaviour, INetworkRunnerCallbacks
 
         currentInput.Buttons.Set(InputButton.RECALL, Input.GetKey(KeyCode.E));
         input.Set(currentInput);
-    
-    
     }
 
     #region UnusedCallbacks

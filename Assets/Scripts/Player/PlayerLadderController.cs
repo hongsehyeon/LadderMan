@@ -31,7 +31,6 @@ public class PlayerLadderController : NetworkBehaviour
 
     public override void Spawned()
     {
-        base.Spawned();
         _ladderInstallTimer = TickTimer.CreateFromSeconds(Runner, 0);
         _ladderRecallTimer = TickTimer.CreateFromSeconds(Runner, 0);
         playerColor = GetComponentInChildren<PlayerBehaviour>().PlayerColor;

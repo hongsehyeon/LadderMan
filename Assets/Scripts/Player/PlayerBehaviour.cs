@@ -163,6 +163,7 @@ public class PlayerBehaviour : NetworkBehaviour
         {
             FindObjectOfType<LevelBehaviour>().PlayerOnDie(Object.InputAuthority, this);
             IsDead = true;
+            gameObject.SetActive(false);
         }
     }
 

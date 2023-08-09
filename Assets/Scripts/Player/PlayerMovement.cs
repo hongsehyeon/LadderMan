@@ -42,6 +42,7 @@ public class PlayerMovement : NetworkBehaviour
     [SerializeField] private Animation _legAnim;
     [SerializeField] private AnimationClip _walkClip;
     [SerializeField] private AnimationClip _jumpClip;
+    [SerializeField] private Transform _nicknameCanvas;
     bool _canWalk;
     bool _canJump;
     bool _flip;
@@ -122,6 +123,7 @@ public class PlayerMovement : NetworkBehaviour
             if (!_flip)
             {
                 _sprite.transform.localScale = new Vector3(_sprite.transform.localScale.x * -1,_sprite.transform.localScale.y,_sprite.transform.localScale.z);
+                _nicknameCanvas.localEulerAngles = new Vector3(0f, 180);
                 _flip = !_flip;
             }
         }
@@ -138,6 +140,7 @@ public class PlayerMovement : NetworkBehaviour
             if (_flip)
             {
                 _sprite.transform.localScale = new Vector3(_sprite.transform.localScale.x * -1,_sprite.transform.localScale.y,_sprite.transform.localScale.z);
+                _nicknameCanvas.localEulerAngles = new Vector3(0f, 0f);
                 _flip = !_flip;
             }
         }

@@ -801,7 +801,6 @@ GameObject:
   - component: {fileID: 1811551406079351944}
   - component: {fileID: 4243746308099737729}
   - component: {fileID: 8756892316438710010}
-  - component: {fileID: 1501190917385861743}
   m_Layer: 0
   m_Name: Nickname
   m_TagString: Untagged
@@ -937,24 +936,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!1818360609 &1501190917385861743
-RotationConstraint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4537784839959663660}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Weight: 1
-  m_RotationAtRest: {x: 0, y: 0, z: 0}
-  m_RotationOffset: {x: 0, y: 0, z: 0}
-  m_AffectRotationX: 1
-  m_AffectRotationY: 1
-  m_AffectRotationZ: 1
-  m_Active: 0
-  m_IsLocked: 0
-  m_Sources: []
 --- !u!1 &5737712473213943649
 GameObject:
   m_ObjectHideFlags: 0

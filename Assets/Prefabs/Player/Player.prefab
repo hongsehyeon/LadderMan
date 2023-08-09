@@ -783,8 +783,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _myLadders: []
-  _installCooltime: 0.5
-  _recallCooltime: 0.5
+  _ladderCooltime: 0.5
   _sfxChannel: {fileID: 11400000, guid: dda0dbbebab449245ab5320da422e686, type: 2}
   _playerSource: {fileID: 2587611712234676105}
   _installSound: {fileID: 11400000, guid: f06bdcc2f66f020469f06d067e67bfbc, type: 2}

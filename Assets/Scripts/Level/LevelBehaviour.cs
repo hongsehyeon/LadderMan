@@ -132,7 +132,7 @@ public class LevelBehaviour : NetworkBehaviour
     {
         MusicChannel.CallSoundEvent(_gameEndMusic);
         SFXChannel.CallSoundEvent(_gameEndSFX);
-        if (_playersAlreadyFinish >= 3 || Winners.Contains(player)) { return; }
+        if (Winners.Contains(player)) { return; }
 
         Winners.Set(_playersAlreadyFinish, player.PlayerId);
 

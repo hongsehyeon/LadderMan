@@ -14,10 +14,8 @@ public class PlayerLadderController : NetworkBehaviour
 
 
     [Header("Cooltime")]
-    [SerializeField] private float _installCooltime;
-    [SerializeField] private float _recallCooltime;
-    TickTimer _ladderInstallTimer { get; set; }
-    TickTimer _ladderRecallTimer { get; set; }
+    [SerializeField] private float _ladderCooltime;
+    TickTimer _ladderTimer { get; set; }
 
     //Outline
     GameObject _lastLadderObject;
@@ -38,8 +36,7 @@ public class PlayerLadderController : NetworkBehaviour
 
     public override void Spawned()
     {
-        _ladderInstallTimer = TickTimer.CreateFromSeconds(Runner, 0);
-        _ladderRecallTimer = TickTimer.CreateFromSeconds(Runner, 0);
+        _ladderTimer = TickTimer.CreateFromSeconds(Runner, 0);
         playerColor = GetComponentInChildren<PlayerBehaviour>().PlayerColor;
         IngameUIManager.Instance.ChangeLadderCount(_ladderAmount);
     }
@@ -51,7 +48,7 @@ public class PlayerLadderController : NetworkBehaviour
             if (input.GetButton(InputButton.INSTALL))
             {
                 if (_ladderAmount <= 0) return;
-                if (_ladderInstallTimer.Expired(Runner) == false) return;
+                if (_ladderTimer.Expired(Runner) == false) return;
 
                 _ladderAmount--;
 
@@ -70,15 +67,15 @@ public class PlayerLadderController : NetworkBehaviour
                 _lastLadderObject = ladder.gameObject;
                 _lastLadderObject.GetComponent<Ladder>().Outline.SetActive(true);
 
-                _ladderInstallTimer = TickTimer.CreateFromSeconds(Runner, _installCooltime);
+                _ladderTimer = TickTimer.CreateFromSeconds(Runner, _ladderCooltime);
                 RPC_InstallEffect();
 
-                IngameUIManager.Instance.UseLadder(_installCooltime);
+                IngameUIManager.Instance.UseLadder(_ladderCooltime);
             }
             if (input.GetButton(InputButton.RECALL))
             {
                 if (_myLadders.Count <= 0) return;
-                if (_ladderRecallTimer.Expired(Runner) == false) return;
+                if (_ladderTimer.Expired(Runner) == false) return;
 
                 if (_myLadders.Last().NextLadder != null) return;
 
@@ -86,7 +83,7 @@ public class PlayerLadderController : NetworkBehaviour
                 _myLadders.Remove(_myLadders.Last());
 
                 LadderManager.Instance.RecallLadder(myLadder);
-                _ladderRecallTimer = TickTimer.CreateFromSeconds(Runner, _installCooltime);
+                _ladderTimer = TickTimer.CreateFromSeconds(Runner, _ladderCooltime);
                 RPC_RecallEffect();
                 LadderAmount++;
 
